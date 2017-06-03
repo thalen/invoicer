@@ -1,0 +1,42 @@
+$article-layout-grid: (
+        columns: 1,
+        gutter: 2rem,
+);
+
+$article-layout-grid--tablet-up: (
+        columns: 5,
+        gutter: 2rem,
+        media: "(min-width: 768px)",
+);
+
+#main {
+  @include grid-container;
+}
+
+.layout-top {
+  @include grid-column(1, $article-layout-grid);
+  margin-bottom: 2rem;
+  height: 10rem;
+}
+
+.layout-sidebar {
+  @include grid-column(1, $article-layout-grid);
+  margin-bottom: 2rem;
+
+  @include grid-media($article-layout-grid--tablet-up) {
+    @include grid-column(1);
+  }
+
+  height: 20rem;
+}
+
+.layout-main {
+  @include grid-column(1, $article-layout-grid);
+
+  @include grid-media($article-layout-grid--tablet-up) {
+    @include grid-column(4);
+  }
+  background-image: linear-gradient(to bottom right, #21e9f4, #00d4ff);
+  color: #fff;
+  height: 20rem;
+}
