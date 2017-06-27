@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        app: './app.js'
+        app: './app.jsx'
     },
     output: {
         path: path.resolve(__dirname, './dist/assets'),
@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: [/node_modules/],
                 use: [{
                     loader: 'babel-loader',

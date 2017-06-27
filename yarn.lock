@@ -1389,6 +1389,10 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
+deep-diff@^0.3.5:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
+
 deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
@@ -1403,17 +1407,17 @@ defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
 
-deku@^2.0.0-rc16:
-  version "2.0.0-rc16"
-  resolved "https://registry.yarnpkg.com/deku/-/deku-2.0.0-rc16.tgz#c2aba187cd6ca1b80de823450e83e48e3b57ce61"
+deku@^2.0.0-rc7:
+  version "2.0.0-rc9"
+  resolved "https://registry.yarnpkg.com/deku/-/deku-2.0.0-rc9.tgz#14c0b0d9fd65b711d1ba4a577fe10a6325cfbac7"
   dependencies:
     uid "0.0.2"
-    dift "0.1.12"
-    index-of "0.2.0"
-    is-svg-element "1.0.1"
-    setify "1.0.3"
-    svg-attribute-namespace "2.1.0"
-    union-type "0.1.6"
+    dift "^0.1.2"
+    index-of "^0.2.0"
+    is-svg-attribute "^1.0.2"
+    is-svg-element "^1.0.1"
+    setify "^1.0.3"
+    union-type "^0.1.6"
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -1466,7 +1470,7 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-dift@0.1.12:
+dift@^0.1.2:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/dift/-/dift-0.1.12.tgz#48f366497ea3361ca30451424b6daea285aa10e1"
   dependencies:
@@ -2322,7 +2326,7 @@ indent-string@^2.1.0:
   dependencies:
     repeating "^2.0.0"
 
-index-of@0.2.0:
+index-of@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/index-of/-/index-of-0.2.0.tgz#38c1e2367ea55dffad3b6eb592ec1cc3090d7d65"
 
@@ -2482,7 +2486,11 @@ is-relative@^0.2.1:
   dependencies:
     is-unc-path "^0.1.1"
 
-is-svg-element@1.0.1:
+is-svg-attribute@^1.0.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/is-svg-attribute/-/is-svg-attribute-1.2.0.tgz#9b57ec8427748ee1d63a265161892f4d39f03302"
+
+is-svg-element@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-svg-element/-/is-svg-element-1.0.1.tgz#a759f1033156bb1e18c60d0f179a013d25ca9296"
 
@@ -3960,6 +3968,16 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-logger@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
+  dependencies:
+    deep-diff "^0.3.5"
+
+redux-thunk@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
+
 redux@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
@@ -4275,7 +4293,7 @@ set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
 
-setify@1.0.3:
+setify@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/setify/-/setify-1.0.3.tgz#94c4422ec8aee33305af78ea7ecb814b90d2b9bd"
   dependencies:
@@ -4564,10 +4582,6 @@ supports-color@^3.1.0, supports-color@^3.1.1, supports-color@^3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
-svg-attribute-namespace@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/svg-attribute-namespace/-/svg-attribute-namespace-2.1.0.tgz#0a16fae979a78ecec802a3da33c8dd3f28bbe5d4"
-
 svgo@^0.7.0:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-0.7.2.tgz#9f5772413952135c6fefbf40afe6a4faa88b4bb5"
@@ -4738,7 +4752,7 @@ unc-path-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
 
-union-type@0.1.6:
+union-type@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/union-type/-/union-type-0.1.6.tgz#4ccf9d39a70534cb95bbd8a03ba250e88d47e8bc"
   dependencies:

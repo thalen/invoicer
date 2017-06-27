@@ -1,9 +1,30 @@
-/** @jsx element */
-import {element,createApp} from 'deku'
-import {createStore} from 'redux'
-import {reducer} from './reducer'
+import Main from './components/Main.jsx'
+import Receiver from './components/Receiver.jsx'
+import Amount from './components/Amount.jsx'
+import Invoice from './components/Invoice.jsx'
+import {createRouter} from './bootstrap'
 import './styles/app.scss';
 
+import {dom, element} from 'deku'
+import { createHistory } from 'history'
+import configureStore from './configureStore'
+
+let store = configureStore();
+
+let routes = [
+    { component: Main, path: '/'},
+    { component: Receiver, path: '/receiver'},
+    { component: Amount, path: '/amount'},
+    { component: Invoice, path: '/invoice'}
+];
+
+let renderNav = dom.createRenderer(document.getElementById('main'), store.dispatch);
+
+
+renderNav(<Main />, store.getState());
+
+//createRouter(routes, 'navigate', 'main');
+/*
 // Dispatch an action when the button is clicked 
 let log = dispatch => event => {
     dispatch({
@@ -32,4 +53,4 @@ render(
 
 store.subscribe(() =>
     console.log(store.getState())
-);
+);*/
