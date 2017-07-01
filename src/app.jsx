@@ -18,12 +18,11 @@ let routes = [
     { component: Invoice, path: '/invoice'}
 ];
 
-let renderNav = dom.createRenderer(document.getElementById('main'), store.dispatch);
+//let renderNav = dom.createRenderer(document.getElementById('main'), store.dispatch);
+//renderNav(<Main />, store.getState());
 
+createRouter(routes, 'navigate', 'main');
 
-renderNav(<Main />, store.getState());
-
-//createRouter(routes, 'navigate', 'main');
 /*
 // Dispatch an action when the button is clicked 
 let log = dispatch => event => {

@@ -12,7 +12,6 @@
     "bourbon-bitters": "^1.2.1",
     "css-loader": "^0.28.2",
     "deku": "^2.0.0-rc7",
-    "history": "^4.6.1",
     "node-bourbon": "^4.2.8",
     "node-neat": "^2.0.0-beta.0",
     "node-sass": "^4.5.3",
@@ -27,5 +26,7 @@
   "scripts": {
     "start": "webpack-dev-server"
   },
-  "dependencies": {}
+  "dependencies": {
+    "history": "^2.0.0"
+  }
 }

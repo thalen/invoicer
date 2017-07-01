@@ -1,9 +1,9 @@
 import {dom, element} from 'deku'
 import { createHistory } from 'history'
-//import configureStore from './configureStore'
+import configureStore from './configureStore'
 import Nav from './components/Nav.jsx'
 
-//let store = configureStore();
+let store = configureStore();
 
 let routes = [];
 let renderNav = null;
@@ -12,7 +12,7 @@ let history = null;
 
 export function createRouter (appRoutes, idNav, idMain) {
 
-    /*let nav = document.getElementById(idNav);
+    let nav = document.getElementById(idNav);
     let main = document.getElementById(idMain);
 
     // set the routes
@@ -29,7 +29,7 @@ export function createRouter (appRoutes, idNav, idMain) {
 
     // subscribe to store changes
     store.subscribe(() => updateStore());
-*/
+
 }
 
 
