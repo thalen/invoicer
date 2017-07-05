@@ -1,0 +1,179 @@
+<html>
+  <head>
+    <title>Invoice</title>
+
+    <style>
+
+      html, body {
+        margin: 0 0 0 5mm;
+        padding: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-style: normal;
+	      font-variant: normal;
+        font-size: 16px;
+        -webkit-print-color-adjust: exact;
+        box-sizing: border-box;
+      }
+
+      table {
+          table-layout: fixed;
+          width: 400px;
+          border-collapse: collapse;
+      }
+
+      th, td {
+        width: 200px;
+      }
+
+	    th {
+		    text-align: left;
+	    }
+
+      table.spec {
+          width: 800px;
+      }
+      table.spec > tbody > tr > th {
+        width: 100px;
+      }
+
+      tr.spec > td {
+          width: 100px;
+      }
+
+      th.xs {
+        width: 50px !important;
+      }
+
+      td.xs {
+        width: 50px !important;
+      }
+
+      th.md {
+        width: 200px !important;
+      }
+
+      td.md {
+        width: 200px !important;
+      }
+
+      div.address > span {
+        margin-right: 150px;
+        display: block;
+      }
+
+
+      #pageBody {
+        position: absolute;
+        top: 400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="pageHeader">
+      <h1 style="margin-left:0;margin-bottom: 0">Thalén solutions AB</h1>
+      <span style="margin-left:1mm">Drottningholmsvägen 55</span>
+      <br>
+      <span style="margin-left:1mm">112 19 Stockholm</span>
+      <div class="address" style="float:right;margin-top:70px">
+        <span>
+          Right people group Digital GmbH
+        </span>
+        <span>
+          Ehrenbergstrasse 7
+        </span>
+        <span>
+          10245 Berlin
+        </span>
+
+        <span style="text-transform:uppercase">
+          Germany
+        </span>
+      </div>
+      <div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+      <h3 style="text-transform:uppercase">Faktura</h3>
+      <table style="margin-top:10mm">
+          <tr>
+            <td>Datum:</td>
+            <td>2017-07-02</td>
+          </tr>
+          <tr>
+            <td>Organisationsnr:</td>
+            <td>HRB 17 9863 B</td>
+          </tr>
+          <tr>
+            <td>Moms regnr:</td>
+            <td>DE3083844673</td>
+          </tr>
+          <tr>
+            <td>Kundnummer:</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold">OCR/Fakturanr:</td>
+            <td style="font-weight:bold">3442</td>
+          </tr>
+          <tr>
+            <td>Betalningsvillkor:</td>
+            <td>36 dagar netto</td>
+          </tr>
+          <tr>
+            <td>Förfallodatum:</td>
+            <td>2017-08-08</td>
+          </tr>
+          <tr>
+            <td>Dröjsmålsränta:</td>
+            <td>7,5%</td>
+          </tr><tr>
+            <td>Valuta:</td>
+            <td>SEK</td>
+          </tr>
+          <tr>
+            <td>Kontaktperson:</td>
+            <td>Emil Byström</td>
+          </tr>
+      </table>
+    </div>
+    <div id="pageBody">
+      <table class="spec" style="margin-top:15px">
+  		<tr>
+  			<th>Benämning</th>
+  			<th>Artikelkod</th>
+  			<th class="xs">Antal</th>
+  			<th class="xs">Enhet</th>
+        <th>á-pris</th>
+        <th class="md">Summa exl. moms</th>
+        <th>Moms-%</th>
+  		</tr>
+  		<tr class="spec">
+  			<td>Olle Thalén</td>
+  			<td>Augusti</td>
+  			<td class="xs">152</td>
+  			<td class="xs">Tim</td>
+        <td>900,00</td>
+        <td class="md">136800,00</td>
+        <td>0</td>
+  		</tr>
+  	  </table>
+    </div>
+    <div id="pageFooter">
+		<div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+		<table style="margin-top:15px">
+		<tr>
+			<th>Organisationsnr</th>
+			<th>Bankkonto</th>
+			<th>BIC</th>
+			<th>IBAN</th>
+		</tr>
+		<tr>
+			<td>123</td>
+			<td>8393893893</td>
+			<td>89898989</td>
+			<td>78787887</td>
+		</tr>
+	  </table>
+	</div>
+  </body>
+
+</html>

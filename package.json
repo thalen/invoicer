@@ -27,6 +27,7 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
-    "history": "^2.0.0"
+    "history": "^2.0.0",
+    "html-pdf": "^2.1.0"
   }
 }
