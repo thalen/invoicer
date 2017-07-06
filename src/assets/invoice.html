@@ -30,11 +30,27 @@
 		    text-align: left;
 	    }
 
+      th.right {
+        text-align: right;
+      }
+
+      td.left {
+        text-align: left;
+      }
+
+      td.right {
+          text-align: right;
+      }
+
       table.spec {
-          width: 800px;
+          width: 750px;
       }
       table.spec > tbody > tr > th {
         width: 100px;
+      }
+
+      tr.spec {
+          border-top: solid 1px black;
       }
 
       tr.spec > td {
@@ -50,11 +66,11 @@
       }
 
       th.md {
-        width: 200px !important;
+        width: 150px !important;
       }
 
       td.md {
-        width: 200px !important;
+        width: 150px !important;
       }
 
       div.address > span {
@@ -142,20 +158,31 @@
   			<th>Artikelkod</th>
   			<th class="xs">Antal</th>
   			<th class="xs">Enhet</th>
-        <th>á-pris</th>
-        <th class="md">Summa exl. moms</th>
-        <th>Moms-%</th>
+        <th class="right">á-pris</th>
+        <th class="md right">Summa exl. moms</th>
+        <th class="right">Moms-%</th>
   		</tr>
   		<tr class="spec">
   			<td>Olle Thalén</td>
   			<td>Augusti</td>
   			<td class="xs">152</td>
   			<td class="xs">Tim</td>
-        <td>900,00</td>
-        <td class="md">136800,00</td>
-        <td>0</td>
+        <td class="right">900,00</td>
+        <td class="md right">136800,00</td>
+        <td class="right">0</td>
   		</tr>
   	  </table>
+      <div style="position:relative;float:right;margin-top:75px;">
+          <div>
+            <span>Slutsumma exkl. moms:</span>
+            <span style="display:inline;margin-left:100px">136800,00</span>
+          </div>
+          <div>
+            <span style="font-weight:bold">Totalt att betala:</span>
+            <span style="font-weight:bold;display:inline;margin-left:142px">136800,00</span>
+          </div>
+      </div>
+
     </div>
     <div id="pageFooter">
 		<div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
