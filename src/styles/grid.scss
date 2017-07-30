@@ -36,7 +36,7 @@ $article-layout-grid--tablet-up: (
   @include grid-media($article-layout-grid--tablet-up) {
     @include grid-column(4);
   }
-  background-image: linear-gradient(to bottom right, #21e9f4, #00d4ff);
-  color: #fff;
+  //background-image: linear-gradient(to bottom right, #21e9f4, #00d4ff);
+  //color: #fff;
   height: 20rem;
 }

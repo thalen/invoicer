@@ -1,9 +1,10 @@
+import './styles/app.scss';
+
 import Main from './components/Main.jsx'
 import Receiver from './components/Receiver.jsx'
 import Amount from './components/Amount.jsx'
 import Invoice from './components/Invoice.jsx'
 import {createRouter} from './bootstrap'
-import './styles/app.scss';
 
 import {dom, element} from 'deku'
 import { createHistory } from 'history'

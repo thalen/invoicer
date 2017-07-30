@@ -34,7 +34,9 @@ export function createRouter (appRoutes, idNav, idMain) {
 
 
 function updateStore() {
-    renderApplication();
+    console.log("updateStore");
+    console.log(store.getState());
+    //renderApplication();
 }
 
 
