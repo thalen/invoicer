@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>Invoice</title>
+
+    <style>
+
+      html, body {
+        margin: 0 0 0 10mm;
+        padding: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-style: normal;
+	      font-variant: normal;
+        font-size: 16px;
+        -webkit-print-color-adjust: exact;
+        box-sizing: border-box;
+      }
+
+      .page {
+        position: fixed;
+        display: block;
+        background: black;
+        page-break-after: auto;
+        margin: 50px;
+        overflow: hidden;
+      }
+
+
+      @media print {
+        .page {
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      #header {
+        position: absolute;
+        top: 0;
+      }
+      #footer {
+        position: absolute;
+        bottom: 5mm;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--<div id="pageHeader2" style="background:blue">
+      test
+    </div>
+  -->
+    <div class="page">
+      <div id="header">
+        <div style="float:right;margin-right:240px;margin-top:30px">Godkänd för F-skatt</div>
+        <h1 style="margin-left:0;margin-bottom: 0">Thalén solutions AB</h1>
+
+        <span style="margin-left:1mm">Drottningholmsvägen 55</span>
+        <br>
+        <span style="margin-left:1mm">112 19 Stockholm</span>
+        <br>
+        <span style="margin-left:1mm">Telefon: 073-670 21 20</span>
+        <br>
+        <span style="margin-left:1mm">E-post: ollejobb@gmail.com</span>
+
+        <div style="width:740px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+        <h3 style="text-transform:uppercase">Faktura</h3>
+      </div>
+      <div id="footer">
+        <span style="color:white">footer</span>
+      </div>
+    </div>
+
+  </body>
+
+</html>

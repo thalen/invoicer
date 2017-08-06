@@ -5,7 +5,7 @@
     <style>
 
       html, body {
-        margin: 0 0 0 5mm;
+        margin: 0 0 0 10mm;
         padding: 0;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
@@ -14,6 +14,22 @@
         font-size: 16px;
         -webkit-print-color-adjust: exact;
         box-sizing: border-box;
+      }
+
+      .page {
+        position: fixed;
+        display: block;
+        page-break-after: auto;
+        margin: 50px;
+        overflow: hidden;
+      }
+
+      @media print {
+        .page {
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
       }
 
       table {
@@ -43,7 +59,7 @@
       }
 
       table.spec {
-          width: 750px;
+          width: 700px;
       }
       table.spec > tbody > tr > th {
         width: 100px;
@@ -73,36 +89,41 @@
         width: 150px !important;
       }
 
-	  table#myInfo th.md {
-		width: 255px !important;
-	  }
+	    table#myInfo th.md {
+		    width: 230px !important;
+	    }
 
-	  table#myInfo td.md {
-		width: 255px !important;
-	  }
+	    table#myInfo td.md {
+		    width: 230px !important;
+	    }
 
       div.address > span {
         margin-right: 150px;
         display: block;
       }
 
+      #header {
+        position: absolute;
+        top: 0;
+      }
 
       #pageBody {
         position: absolute;
-        top: 450px;
+        top: 600px;
       }
 
       #footer {
         position: absolute;
-        top: 760px;
+        bottom: 10px;
       }
     </style>
   </head>
 
   <body>
-    <div id="pageHeader">
+    <div class="page">
+    <div id="header">
 
-      <div style="float:right;margin-top:10px;margin-right:240px;">Godkänd för F-skatt</div>
+      <div style="float:right;margin-right:240px;margin-top:30px">Godkänd för F-skatt</div>
       <h1 style="margin-left:0;margin-bottom: 0">Thalén solutions AB</h1>
 
       <span style="margin-left:1mm">Drottningholmsvägen 55</span>
@@ -112,7 +133,7 @@
       <span style="margin-left:1mm">Telefon: 073-670 21 20</span>
       <br>
       <span style="margin-left:1mm">E-post: ollejobb@gmail.com</span>
-      <div class="address" style="float:right;margin-top:70px">
+      <div class="address" style="float:right;margin-top:55px">
         <span>
           Right people group Digital GmbH
         </span>
@@ -127,12 +148,12 @@
           Germany
         </span>
       </div>
-      <div style="width:740px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+      <div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
       <h3 style="text-transform:uppercase">Faktura</h3>
       <table style="margin-top:10mm">
           <tr>
             <td>Fakturadatum:</td>
-            <td>2017-08-01</td>
+            <td>2017-07-31</td>
           </tr>
           <tr>
             <td>Organisationsnr:</td>
@@ -212,7 +233,7 @@
 
     </div>
     <div id="footer">
-		<div style="width:740px;border-bottom: 1px solid #b5b5b5;"></div>
+		<div style="width:700px;border-bottom: 1px solid #b5b5b5;"></div>
 		<table id="myInfo" style="margin-top:15px">
 		<tr>
       <th class="md">Namn</th>
@@ -237,6 +258,7 @@
     </tr>
 	  </table>
 	</div>
+</div>
   </body>
 
 </html>
