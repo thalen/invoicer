@@ -3,8 +3,12 @@ import {element} from 'deku'
 
 export default {
 
-    render({dispatch}) {
+    render({context, dispatch}) {
         let model = {};
+        let notification = '';
+        if (context.invoice.showPdf) {
+            notification = (<div class="invoice__notification">Fakturan är laddad</div>);
+        }
         return (
             <div class="invoice">
                 <h3>Registrera faktura</h3>
@@ -47,6 +51,7 @@ export default {
                         <p><input type="submit" value="Förhandsgranska"/></p>
                     </form>
                 </fieldset>
+                {notification}
             </div>
         )
     }

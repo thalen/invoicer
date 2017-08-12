@@ -2,6 +2,7 @@ import {dom, element} from 'deku'
 import { createHistory } from 'history'
 import configureStore from './configureStore'
 import Nav from './components/Nav.jsx'
+import Invoice from './components/Invoice.jsx'
 
 let store = configureStore();
 
@@ -35,8 +36,10 @@ export function createRouter (appRoutes, idNav, idMain) {
 
 function updateStore() {
     console.log("updateStore");
-    console.log(store.getState());
-    //renderApplication();
+    let state = store.getState();
+    if (state.invoice.showPdf) {
+        renderMain(<Invoice/>, state);
+    }
 }
 
 

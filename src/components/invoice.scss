@@ -5,4 +5,10 @@
     margin: 0 0 .75em;
     padding: 1.5em;
   }
+
+  &__notification {
+    background: forestgreen;
+    border: 1px solid #DDD;
+    height: 30px;
+  }
 }
