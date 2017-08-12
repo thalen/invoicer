@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
 
-router.post('/authenticate', function(req, res) {
+router.post('/pdf/create', function(req, res) {
     var hours = req.body.hours;
     var price = req.body.price;
 

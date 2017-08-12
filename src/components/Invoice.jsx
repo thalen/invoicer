@@ -26,8 +26,11 @@ export default {
                         console.log('hours: ' + model.hours.value);
                         console.log('price: ' + model.price.value);
                         dispatch({
-                            type: 'PREVIEW',
-                            model: model
+                            type: 'PREVIEW_INIT',
+                            model: {
+                                hours: model.hours.value,
+                                price: model.price.value
+                            }
                         });
                         model.hours.value = '';
                         model.price.value = '';
