@@ -1,11 +1,17 @@
 ## Invoicer
 Application for creating invoices
 
-UI implemented using the JS library deku and backend NodeJS
+### Stack spec
+* DekuJS, JSX, redux, redux-observable, rxjs
+* sass, bourbon, neat, bitters
+* webpack, es6, babel
+* nodejs, express, html-pdf
 
 Start dev server:
 
 ```javascript
 yarn
-yarn start
+yarn dev //starts webpack dev server and backend routes
+yarn webpack //starts frontend
+yarn api //starts backend
 ```
