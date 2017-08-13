@@ -7,11 +7,11 @@ Application for creating invoices
 * webpack, es6, babel
 * nodejs, express, html-pdf
 
-Start dev server:
+Setup:
 
 ```javascript
-yarn
-yarn dev //starts webpack dev server and backend routes
-yarn webpack //starts frontend
-yarn api //starts backend
+yarn            //setup
+yarn dev        //starts webpack dev server and backend routes
+yarn webpack    //starts frontend
+yarn api        //starts backend
 ```
