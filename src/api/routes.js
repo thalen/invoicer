@@ -2,6 +2,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var pdf = require('html-pdf');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -33,8 +34,28 @@ router.post('/pdf/create', function(req, res) {
     var hours = req.body.hours;
     var price = req.body.price;
 
-    console.log("hours: " + hours);
-    console.log("price: " + price);
+    console.log("hours: " + (typeof hours));
+    console.log("price: " + (typeof price));
+
+    var hbs = require('express-handlebars').create();
+    
+    hbs.getTemplate('./src/api/templates/pdf.hb.html').then(function (template) {
+        var context = {hours: hours, price: price};
+        var html = template(context);
+        
+        var options = {
+            "format": "A4"
+        };
+        pdf.create(html, options).toFile('./src/assets/invoice2.pdf', function(err, res) {
+            console.log("pdf created");
+            if (err) {
+                console.log(err);
+            }
+        });
+    }).catch(function(error) {
+        console.log("error: " + error);
+    });
+
     res.json({
         success: true
     });
