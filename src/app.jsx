@@ -8,9 +8,6 @@ import {createRouter} from './bootstrap'
 
 import {dom, element} from 'deku'
 import { createHistory } from 'history'
-import configureStore from './configureStore'
-
-let store = configureStore();
 
 let routes = [
     { component: Main, path: '/'},
