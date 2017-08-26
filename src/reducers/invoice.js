@@ -6,10 +6,13 @@ export default function(state = {}, action) {
                 { showPdf: false }
             );
         case 'PREVIEW':
-            console.log("preview reducer");
+            console.log("preview reducer, " + action.payload.filepath);
             return Object.assign({},
                 state,
-                { showPdf: true }
+                { 
+                    showPdf: true,
+                    pdfLink: action.payload.response.filepath
+                }
             );
         default:
             return state;

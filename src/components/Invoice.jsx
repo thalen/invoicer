@@ -6,8 +6,14 @@ export default {
     render({context, dispatch}) {
         let model = {};
         let notification = '';
+        
         if (context.invoice.showPdf) {
-            notification = (<div class="invoice__notification">Fakturan är laddad</div>);
+            notification = (
+                <div class="invoice__notification">
+                    Fakturan är laddad
+                    <a style="display:block" href={context.invoice.pdfLink}>Förhandsgranska</a>
+                </div>
+            );
         }
         return (
             <div class="invoice">
@@ -23,8 +29,7 @@ export default {
                         if (!model.price.value.trim()) {
                             return;
                         }
-                        console.log('hours: ' + model.hours.value);
-                        console.log('price: ' + model.price.value);
+                        
                         dispatch({
                             type: 'PREVIEW_INIT',
                             model: {

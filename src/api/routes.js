@@ -3,6 +3,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var pdf = require('html-pdf');
+var moment = require('moment');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -46,19 +47,26 @@ router.post('/pdf/create', function(req, res) {
         var options = {
             "format": "A4"
         };
-        pdf.create(html, options).toFile('./src/assets/invoice2.pdf', function(err, res) {
+        
+        var timestamp = moment().valueOf();
+        var filepath = './src/assets/invoice_' + timestamp + '.pdf';
+        var link = '/assets/invoice_' + timestamp + '.pdf';
+        pdf.create(html, options).toFile(filepath, function(err) {
             console.log("pdf created");
             if (err) {
                 console.log(err);
             }
+            res.json({
+                success: true,
+                filepath: link
+            });
         });
     }).catch(function(error) {
-        console.log("error: " + error);
+        res.json({
+            success: false
+        })
     });
 
-    res.json({
-        success: true
-    });
 });
 
 // REGISTER OUR ROUTES -------------------------------
