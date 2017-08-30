@@ -34,7 +34,8 @@ export default {
                             type: 'PREVIEW_INIT',
                             model: {
                                 hours: model.hours.value,
-                                price: model.price.value
+                                price: model.price.value,
+                                dueDate: model.dueDate.value
                             }
                         });
                         model.hours.value = '';
@@ -54,6 +55,14 @@ export default {
                                 model.price = node;
                             }
                             }/>
+                        </p>
+
+                        <p>
+                            <label for="dueDate">Förfallodatum</label>
+                            <input type="date" id="dueDate" ref={node => {
+                                model.dueDate = node;
+                            }
+                            }/> 
                         </p>
 
                         <p><input type="submit" value="Förhandsgranska"/></p>

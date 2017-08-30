@@ -24,7 +24,8 @@ const previewEpic = action$ =>
                 url: 'http://localhost:5000/api/pdf/create',
                 body: {
                     'hours': action.model.hours,
-                    'price': action.model.price
+                    'price': action.model.price,
+                    'dueDate': action.model.dueDate
                 },
             }).map(pdfCreated);
         }

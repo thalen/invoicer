@@ -98,7 +98,7 @@
         }
   
         div.address > span {
-          margin-right: 150px;
+          margin-right: 50px;
           display: block;
         }
   
@@ -123,7 +123,7 @@
       <div class="page">
       <div id="header">
   
-        <div style="float:right;margin-right:240px;margin-top:30px">Godkänd för F-skatt</div>
+        <div style="float:right;margin-right:140px;margin-top:30px">Godkänd för F-skatt</div>
         <h1 style="margin-left:0;margin-bottom: 0">Thalén solutions AB</h1>
   
         <span style="margin-left:1mm">Drottningholmsvägen 55</span>
@@ -153,7 +153,7 @@
         <table style="margin-top:10mm">
             <tr>
               <td>Fakturadatum:</td>
-              <td>2017-07-31</td>
+              <td>{{invoiceDate}}</td>
             </tr>
             <tr>
               <td>Organisationsnr:</td>
@@ -169,7 +169,7 @@
             </tr>
             <tr>
               <td style="font-weight:bold">OCR/Fakturanr:</td>
-              <td style="font-weight:bold">1</td>
+              <td style="font-weight:bold">2</td>
             </tr>
             <tr>
               <td>Betalningsvillkor:</td>
@@ -177,7 +177,7 @@
             </tr>
             <tr>
               <td>Förfallodatum:</td>
-              <td>2017-09-05</td>
+              <td>{{dueDate}}</td>
             </tr>
             <tr>
               <td>Dröjsmålsränta:</td>
@@ -200,6 +200,8 @@
         <strong>Specifikation:</strong>
         <br>
         Resurskonsult IT, Folksam ömsesidig sakförsäkring. Referens Ework: 106025
+        <br>
+        Reverse Charge VAT
         <table class="spec" style="margin-top:15px">
         <tr>
           <th>Benämning</th>
@@ -216,18 +218,18 @@
           <td class="xs">{{hours}}</td>
           <td class="xs">Tim</td>
           <td class="right">{{price}}</td>
-          <td class="md right">131400,00</td>
+          <td class="md right">{{amount}}</td>
           <td class="right">0</td>
         </tr>
         </table>
         <div style="position:relative;float:right;margin-top:75px;">
             <div>
               <span>Slutsumma exkl. moms:</span>
-              <span style="display:inline;margin-left:100px">131400,00</span>
+              <span style="display:inline;margin-left:100px">{{amount}}</span>
             </div>
             <div>
               <span style="font-weight:bold">Totalt att betala:</span>
-              <span style="font-weight:bold;display:inline;margin-left:142px">131400,00</span>
+              <span style="font-weight:bold;display:inline;margin-left:142px">{{amount}}</span>
             </div>
         </div>
   

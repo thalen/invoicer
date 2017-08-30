@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var pdf = require('html-pdf');
 var moment = require('moment');
+var numeral = require('numeral');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -32,16 +33,24 @@ router.get('/', function(req, res) {
 });
 
 router.post('/pdf/create', function(req, res) {
-    var hours = req.body.hours;
-    var price = req.body.price;
-
-    console.log("hours: " + (typeof hours));
-    console.log("price: " + (typeof price));
+    var hours = numeral(req.body.hours);
+    var price = numeral(req.body.price);
+    var amount = hours.value() * price.value();
+    amount = amount.toString() + ',00';
 
     var hbs = require('express-handlebars').create();
     
+    console.log(req.body.dueDate);
+    
     hbs.getTemplate('./src/api/templates/pdf.hb.html').then(function (template) {
-        var context = {hours: hours, price: price};
+        var context = {
+            hours: hours.value(),
+            price: price.value(),
+            amount: amount,
+            invoiceDate: moment().format('YYYY-MM-DD'),
+            dueDate: req.body.dueDate
+        };
+
         var html = template(context);
         
         var options = {
@@ -49,8 +58,8 @@ router.post('/pdf/create', function(req, res) {
         };
         
         var timestamp = moment().valueOf();
-        var filepath = './src/assets/invoice_' + timestamp + '.pdf';
-        var link = '/assets/invoice_' + timestamp + '.pdf';
+        var filepath = './src/assets/invoices/invoice_' + timestamp + '.pdf';
+        var link = '/assets/invoices/invoice_' + timestamp + '.pdf';
         pdf.create(html, options).toFile(filepath, function(err) {
             console.log("pdf created");
             if (err) {
