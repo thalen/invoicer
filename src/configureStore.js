@@ -10,6 +10,9 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
+import Vue from 'vue'
+import Revue from 'revue'
+
 const loggerMiddleware = createLogger();
 
 const pdfCreated = payload => ({ type: 'PREVIEW', payload });
@@ -34,7 +37,8 @@ const previewEpic = action$ =>
 
 const epicMiddleware = createEpicMiddleware(previewEpic);
 
-export default function configureStore(initialState) {
+let store;
+function configureStore(initialState) {
 
     const createStoreWithMiddleware = applyMiddleware(
         thunkMiddleware,
@@ -42,7 +46,12 @@ export default function configureStore(initialState) {
         epicMiddleware
     )(createStore);
 
-    const store = createStoreWithMiddleware(rootReducer);
-
+    let reduxStore = createStoreWithMiddleware(rootReducer);
+    store = new Revue(Vue, reduxStore, {});
+}
+export function getStore() {
+    if (store === void 0) {
+        configureStore();
+    }
     return store;
 }
