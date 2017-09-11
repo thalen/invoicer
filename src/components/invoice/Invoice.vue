@@ -1,5 +1,5 @@
 <template>
-    <div class="invoice">
+    <div class="invoice layout-main">
         <h3>Registrera faktura</h3>
         <fieldset class="invoice__form">
             <p>Fyll i fakturauppgifterna nedan för att skapa din faktura</p>
