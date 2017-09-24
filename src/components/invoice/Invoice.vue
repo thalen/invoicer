@@ -28,7 +28,7 @@
         </fieldset>
         <div v-if="showPdf" class="invoice__notification">
             Fakturan är laddad
-            <a style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
+            <a target="_blank" style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
         </div>
     </div>
 </template>
