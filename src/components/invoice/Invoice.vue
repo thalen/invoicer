@@ -22,6 +22,24 @@
                 </p>
 
                 <p>
+                    <label for="invoiceMonth">Månad</label>
+                    <select id="invoiceMonth" v-model="form.invoiceMonth">
+                        <option value="">Välj en månad</option>
+                        <option value="Januari">Januari</option>
+                        <option value="Februari">Februari</option>
+                        <option value="Mars">Mars</option>
+                        <option value="April">April</option>
+                        <option value="Maj">Maj</option>
+                        <option value="Juni">Juni</option>
+                        <option value="Juli">Juli</option>
+                        <option value="Augusti">Augusti</option>
+                        <option value="September">September</option>
+                        <option value="Oktober">Oktober</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </p>
+                <p>
                     <input v-on:click="doPreview" type="submit" value="Förhandsgranska"/>
                 </p>
             </form>
@@ -41,7 +59,9 @@
         name: 'invoice',
         data () {
             return {
-                form: {},
+                form: {
+                    invoiceMonth: ''
+                },
                 showPdf: this.$select('invoice.showPdf as showPdf'),
                 pdfLink: this.$select('invoice.pdfLink as pdfLink')
             }
@@ -54,10 +74,13 @@
                     model: {
                         hours: this.form.hours,
                         price: this.form.price,
-                        dueDate: this.form.dueDate
+                        dueDate: this.form.dueDate,
+                        invoiceMonth: this.form.invoiceMonth
                     }
                 });
-                this.form = {};
+                this.form = {
+                    invoiceMonth: ''
+                };
             }
         }
     }

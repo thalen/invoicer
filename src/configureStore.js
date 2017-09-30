@@ -21,14 +21,14 @@ const previewEpic = action$ =>
         .debounceTime(500)
         .mergeMap(action =>
         {
-            console.log(action.model);
             return Observable.ajax({
                 method: 'POST',
                 url: 'http://localhost:5000/api/pdf/create',
                 body: {
                     'hours': action.model.hours,
                     'price': action.model.price,
-                    'dueDate': action.model.dueDate
+                    'dueDate': action.model.dueDate,
+                    'invoiceMonth': action.model.invoiceMonth
                 },
             }).map(pdfCreated);
         }

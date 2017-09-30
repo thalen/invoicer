@@ -5,6 +5,9 @@ var morgan = require('morgan');
 var pdf = require('html-pdf');
 var moment = require('moment');
 var numeral = require('numeral');
+var AWS = require('aws-sdk');
+var fs = require('fs');
+AWS.config.loadFromPath('./aws_config.json');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -33,6 +36,28 @@ router.get('/', function(req, res) {
 });
 
 router.post('/pdf/create', function(req, res) {
+
+    /*
+    var s3 = new AWS.S3();
+    var myBucket = 'thalen.invoices.bucket';
+    var myKey = 'myBucketKey';
+    var params = {Bucket: myBucket, Key: myKey, Body: 'Hello!'};
+
+    s3.putObject(params, function(err, data) {
+
+        if (err) {
+
+            console.log(err)
+
+        } else {
+
+            console.log("Successfully uploaded data to myBucket/myKey");
+
+        }
+
+    });
+*/
+
     var hours = numeral(req.body.hours);
     var price = numeral(req.body.price);
     var amount = hours.value() * price.value();
@@ -48,7 +73,8 @@ router.post('/pdf/create', function(req, res) {
             price: price.value(),
             amount: amount,
             invoiceDate: moment().format('YYYY-MM-DD'),
-            dueDate: req.body.dueDate
+            dueDate: req.body.dueDate,
+            invoiceMonth: req.body.invoiceMonth
         };
 
         var html = template(context);
@@ -65,9 +91,25 @@ router.post('/pdf/create', function(req, res) {
             if (err) {
                 console.log(err);
             }
-            res.json({
-                success: true,
-                filepath: link
+            fs.readFile(filepath, function (err, data) {
+                var myBucket = 'thalen.invoices.bucket';
+                var s3bucket = new AWS.S3({params: {Bucket: myBucket}});
+                var params = {
+                    Key: link,
+                    Body: data
+                };
+                s3bucket.upload(params, function (err, data) {
+                    if (err) {
+                        console.log('ERROR MSG: ', err);
+                        res.status(500).send(err);
+                    } else {
+                        console.log('Successfully uploaded data');
+                        res.json({
+                            success: true,
+                            filepath: link
+                        });
+                    }
+                });
             });
         });
     }).catch(function(error) {
