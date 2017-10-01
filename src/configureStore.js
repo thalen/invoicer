@@ -2,7 +2,7 @@ import {createStore, applyMiddleware} from 'redux'
 import rootReducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
-import {createEpicMiddleware} from 'redux-observable';
+import {createEpicMiddleware, combineEpics} from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax';
 import 'rxjs/add/observable/of';
@@ -35,7 +35,19 @@ const previewEpic = action$ =>
 
         );
 
-const epicMiddleware = createEpicMiddleware(previewEpic);
+const linkRemoved = payload => ({ type: 'LINK_REMOVED', payload});
+const deleteTempFile = action$ =>
+    action$.ofType('REMOVE_LINK')
+        .debounceTime(500)
+        .mergeMap(action =>
+        {
+            return Observable.ajax({
+                method: 'DELETE',
+                url: `http://localhost:5000/api/pdf/${action.asset}`
+            }).map(linkRemoved);
+        });
+
+const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile));
 
 let store;
 function configureStore(initialState) {

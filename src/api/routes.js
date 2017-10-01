@@ -35,28 +35,18 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
 
-router.post('/pdf/create', function(req, res) {
-
-    /*
-    var s3 = new AWS.S3();
-    var myBucket = 'thalen.invoices.bucket';
-    var myKey = 'myBucketKey';
-    var params = {Bucket: myBucket, Key: myKey, Body: 'Hello!'};
-
-    s3.putObject(params, function(err, data) {
-
+router.delete('/pdf/:link', function(req, res) {
+    var filepath = './src/assets/invoices/' + req.params.link;
+    fs.unlink(filepath, function(err) {
         if (err) {
-
-            console.log(err)
-
+            res.status(500).send(err);
         } else {
-
-            console.log("Successfully uploaded data to myBucket/myKey");
-
+            res.send(200);
         }
-
     });
-*/
+});
+
+router.post('/pdf/create', function(req, res) {
 
     var hours = numeral(req.body.hours);
     var price = numeral(req.body.price);

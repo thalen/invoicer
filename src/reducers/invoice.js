@@ -14,6 +14,11 @@ export default function(state = {}, action) {
                     pdfLink: action.payload.response.filepath
                 }
             );
+        case 'LINK_REMOVED':
+            return Object.assign({},
+                state,
+                { linkRemoved: true}
+            );
         default:
             return state;
     }

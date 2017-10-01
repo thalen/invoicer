@@ -69,6 +69,13 @@
         methods: {
             doPreview(event) {
                 event.preventDefault();
+                if (this.pdfLink !== void 0) {
+                    let arr = this.pdfLink.split('/');
+                    store.dispatch({
+                        type: 'REMOVE_LINK',
+                        asset: arr[arr.length-1]
+                    });
+                }
                 store.dispatch({
                     type: 'PREVIEW_INIT',
                     model: {
