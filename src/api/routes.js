@@ -7,6 +7,8 @@ var moment = require('moment');
 var numeral = require('numeral');
 var AWS = require('aws-sdk');
 var fs = require('fs');
+var Promise = require('promise');
+
 AWS.config.loadFromPath('./aws_config.json');
 
 // configure app to use bodyParser()
@@ -53,7 +55,11 @@ router.post('/pdf/create/:link', function(req, res) {
         var s3bucket = new AWS.S3({params: {Bucket: myBucket}});
         var params = {
             Key: '/assets/invoices/' + req.params.link,
-            Body: data
+            Body: data,
+            Metadata: {
+                'Content-Type': 'application/pdf',
+                'OCR': '1'
+            }
         };
         s3bucket.upload(params, function (err, data) {
             if (err) {
@@ -68,49 +74,81 @@ router.post('/pdf/create/:link', function(req, res) {
 });
 
 router.post('/pdf/preview', function(req, res) {
+    var myBucket = 'thalen.invoices.bucket';
+    var s3 = new AWS.S3();
+    var params = {
+        Bucket: myBucket
+    };
+    s3.listObjects(params, function (err, data) {
+        if(err)throw err;
+        var allPromises = data.Contents.map(function(content) {
+            var dataToDownload = {Bucket: myBucket, Key: content.Key};
+            var promise = new Promise(function (resolve, reject) {
+                s3.getObject(dataToDownload, function(err, data) {
+                    if (!err) {
+                        resolve(data.Metadata.ocr);
+                    } else {
+                        reject(err);
+                    }
+                });
+            });
+            return promise;
+        });
+        Promise.all(allPromises).then(function(result) {
+            var maxValue = result.reduce(function(maxValue, currentValue) {
+                if (currentValue === undefined) {
+                    return maxValue;
+                } else {
+                    var intVal = parseInt(currentValue);
+                    return intVal > maxValue ? intVal : maxValue;
+                }
+            }, 0);
 
-    var hours = numeral(req.body.hours);
-    var price = numeral(req.body.price);
-    var amount = hours.value() * price.value();
-    amount = amount.toString() + ',00';
+            var hours = numeral(req.body.hours);
+            var price = numeral(req.body.price);
+            var amount = hours.value() * price.value();
+            amount = amount.toString() + ',00';
 
-    var hbs = require('express-handlebars').create();
-    
-    console.log(req.body.dueDate);
-    
-    hbs.getTemplate('./src/api/templates/pdf.hb.html').then(function (template) {
-        var context = {
-            hours: hours.value(),
-            price: price.value(),
-            amount: amount,
-            invoiceDate: moment().format('YYYY-MM-DD'),
-            dueDate: req.body.dueDate,
-            invoiceMonth: req.body.invoiceMonth
-        };
+            var hbs = require('express-handlebars').create();
 
-        var html = template(context);
-        
-        var options = {
-            "format": "A4"
-        };
-        
-        var timestamp = moment().valueOf();
-        var filepath = './src/assets/invoices/invoice_' + timestamp + '.pdf';
-        var link = '/assets/invoices/invoice_' + timestamp + '.pdf';
-        pdf.create(html, options).toFile(filepath, function(err) {
-            console.log("pdf created");
-            if (err) {
-                console.log(err);
-            }
-            res.json({
-                success: true,
-                filepath: link
+            console.log(req.body.dueDate);
+
+            hbs.getTemplate('./src/api/templates/pdf.hb.html').then(function (template) {
+                var context = {
+                    ocr: maxValue + 1,
+                    hours: hours.value(),
+                    price: price.value(),
+                    amount: amount,
+                    invoiceDate: moment().format('YYYY-MM-DD'),
+                    dueDate: req.body.dueDate,
+                    invoiceMonth: req.body.invoiceMonth
+                };
+
+                var html = template(context);
+
+                var options = {
+                    "format": "A4"
+                };
+
+                var timestamp = moment().valueOf();
+                var filepath = './src/assets/invoices/invoice_' + timestamp + '.pdf';
+                var link = '/assets/invoices/invoice_' + timestamp + '.pdf';
+                pdf.create(html, options).toFile(filepath, function(err) {
+                    console.log("pdf created");
+                    if (err) {
+                        console.log(err);
+                    }
+                    res.json({
+                        success: true,
+                        filepath: link
+                    });
+                });
+            }).catch(function(error) {
+                res.json({
+                    success: false
+                })
             });
         });
-    }).catch(function(error) {
-        res.json({
-            success: false
-        })
     });
 
 });
