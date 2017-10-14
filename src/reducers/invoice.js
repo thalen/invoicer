@@ -6,7 +6,6 @@ export default function(state = {}, action) {
                 { showPdf: false }
             );
         case 'PREVIEW':
-            console.log("preview reducer, " + action.payload.filepath);
             return Object.assign({},
                 state,
                 { 
@@ -17,7 +16,15 @@ export default function(state = {}, action) {
         case 'LINK_REMOVED':
             return Object.assign({},
                 state,
-                { linkRemoved: true}
+                {
+                    linkRemoved: true,
+                    pdfLink: null
+                }
+            );
+        case 'INVOICE_SAVED':
+            return Object.assign({},
+                state,
+                { showPdf: false }
             );
         default:
             return state;

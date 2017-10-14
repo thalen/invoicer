@@ -12,6 +12,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import Vue from 'vue'
 import Revue from 'revue'
+import invoice from "./reducers/invoice";
 
 const loggerMiddleware = createLogger();
 
@@ -23,7 +24,7 @@ const previewEpic = action$ =>
         {
             return Observable.ajax({
                 method: 'POST',
-                url: 'http://localhost:5000/api/pdf/create',
+                url: 'http://localhost:5000/api/pdf/preview',
                 body: {
                     'hours': action.model.hours,
                     'price': action.model.price,
@@ -47,7 +48,18 @@ const deleteTempFile = action$ =>
             }).map(linkRemoved);
         });
 
-const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile));
+const invoiceSaved = payload => ({ type: 'INVOICE_SAVED', payload});
+const saveInvoice = action$ =>
+    action$.ofType('SAVE_INVOICE')
+        .debounceTime(500)
+        .mergeMap(action =>
+        {
+            return Observable.ajax({
+                method: 'POST',
+                url: `http://localhost:5000/api/pdf/create/${action.pdf}`
+            }).map(invoiceSaved);
+        });
+const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice));
 
 let store;
 function configureStore(initialState) {

@@ -46,7 +46,28 @@ router.delete('/pdf/:link', function(req, res) {
     });
 });
 
-router.post('/pdf/create', function(req, res) {
+router.post('/pdf/create/:link', function(req, res) {
+    var filepath = './src/assets/invoices/' + req.params.link;
+    fs.readFile(filepath, function (err, data) {
+        var myBucket = 'thalen.invoices.bucket';
+        var s3bucket = new AWS.S3({params: {Bucket: myBucket}});
+        var params = {
+            Key: '/assets/invoices/' + req.params.link,
+            Body: data
+        };
+        s3bucket.upload(params, function (err, data) {
+            if (err) {
+                console.log('ERROR MSG: ', err);
+                res.status(500).send(err);
+            } else {
+                console.log('Successfully uploaded data');
+                res.send(200);
+            }
+        });
+    });
+});
+
+router.post('/pdf/preview', function(req, res) {
 
     var hours = numeral(req.body.hours);
     var price = numeral(req.body.price);
@@ -81,25 +102,9 @@ router.post('/pdf/create', function(req, res) {
             if (err) {
                 console.log(err);
             }
-            fs.readFile(filepath, function (err, data) {
-                var myBucket = 'thalen.invoices.bucket';
-                var s3bucket = new AWS.S3({params: {Bucket: myBucket}});
-                var params = {
-                    Key: link,
-                    Body: data
-                };
-                s3bucket.upload(params, function (err, data) {
-                    if (err) {
-                        console.log('ERROR MSG: ', err);
-                        res.status(500).send(err);
-                    } else {
-                        console.log('Successfully uploaded data');
-                        res.json({
-                            success: true,
-                            filepath: link
-                        });
-                    }
-                });
+            res.json({
+                success: true,
+                filepath: link
             });
         });
     }).catch(function(error) {

@@ -47,6 +47,7 @@
         <div v-if="showPdf" class="invoice__notification">
             Fakturan är laddad
             <a target="_blank" style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
+            <button style="margin-top:10px" v-on:click="doSave">Spara</button>
         </div>
     </div>
 </template>
@@ -88,6 +89,18 @@
                 this.form = {
                     invoiceMonth: ''
                 };
+            },
+            doSave(event) {
+                event.preventDefault();
+                let arr = this.pdfLink.split('/');
+                store.dispatch({
+                    type: 'SAVE_INVOICE',
+                    pdf: arr[arr.length-1]
+                });
+                store.dispatch({
+                    type: 'REMOVE_LINK',
+                    asset: arr[arr.length-1]
+                });
             }
         }
     }
