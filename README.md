@@ -2,7 +2,7 @@
 Application for creating invoices
 
 ### Stack spec
-* DekuJS, JSX, redux, redux-observable, rxjs
+* vue, redux (revue), redux-observable, rxjs
 * sass, bourbon, neat, bitters
 * webpack, es6, babel
 * nodejs, express, html-pdf
