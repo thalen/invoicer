@@ -48,6 +48,18 @@ router.delete('/pdf/:link', function(req, res) {
     });
 });
 
+router.get('/invoices', function(req, res) {
+    var myBucket = 'thalen.invoices.bucket';
+    var s3 = new AWS.S3();
+    var params = {
+        Bucket: myBucket
+    };
+    s3.listObjects(params, function (err, data) {
+        if (err) throw err;
+        res.json(data.Contents);
+    });
+});
+
 router.post('/pdf/create/:link', function(req, res) {
     var filepath = './src/assets/invoices/' + req.params.link;
     var ocr = req.body.ocr;

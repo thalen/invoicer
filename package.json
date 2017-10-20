@@ -37,6 +37,7 @@
   "dependencies": {
     "aws-sdk": "^2.122.0",
     "body-parser": "^1.15.0",
+    "date-fns": "^1.29.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.10",

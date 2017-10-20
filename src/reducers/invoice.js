@@ -1,3 +1,5 @@
+import format from 'date-fns/format';
+
 export default function(state = {}, action) {
     switch (action.type) {
         case 'PREVIEW_INIT':
@@ -27,6 +29,20 @@ export default function(state = {}, action) {
             return Object.assign({},
                 state,
                 { showPdf: false }
+            );
+        case 'INVOICES_LOADED':
+            let values = action.payload.response.map((elem) => {
+                return {
+                    id: elem.Key,
+                    created: format(elem.LastModified, 'YYYY-MM-DD')
+                };
+            });
+
+            return Object.assign({},
+                state,
+                {
+                    invoices: values
+                }
             );
         default:
             return state;

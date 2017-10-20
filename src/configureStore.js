@@ -62,7 +62,20 @@ const saveInvoice = action$ =>
                 }
             }).map(invoiceSaved);
         });
-const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice));
+
+const invoicesLoaded = payload => ({ type: 'INVOICES_LOADED', payload});
+const loadInvoices = action$ =>
+    action$.ofType('LOAD_INVOICES')
+        .debounceTime(500)
+        .mergeMap(action =>
+        {
+            return Observable.ajax({
+                method: 'GET',
+                url: 'http://localhost:5000/api/invoices'
+            }).map(invoicesLoaded);
+        });
+
+const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice, loadInvoices));
 
 let store;
 function configureStore(initialState) {
