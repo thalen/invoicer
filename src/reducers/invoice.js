@@ -10,7 +10,8 @@ export default function(state = {}, action) {
                 state,
                 { 
                     showPdf: true,
-                    pdfLink: action.payload.response.filepath
+                    pdfLink: action.payload.response.filepath,
+                    ocr: action.payload.response.ocr
                 }
             );
         case 'LINK_REMOVED':
@@ -18,7 +19,8 @@ export default function(state = {}, action) {
                 state,
                 {
                     linkRemoved: true,
-                    pdfLink: null
+                    pdfLink: null,
+                    ocr: null
                 }
             );
         case 'INVOICE_SAVED':

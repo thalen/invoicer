@@ -56,7 +56,10 @@ const saveInvoice = action$ =>
         {
             return Observable.ajax({
                 method: 'POST',
-                url: `http://localhost:5000/api/pdf/create/${action.pdf}`
+                url: `http://localhost:5000/api/pdf/create/${action.pdf}`,
+                body: {
+                    'ocr': action.ocr
+                }
             }).map(invoiceSaved);
         });
 const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice));

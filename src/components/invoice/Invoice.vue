@@ -64,13 +64,14 @@
                     invoiceMonth: ''
                 },
                 showPdf: this.$select('invoice.showPdf as showPdf'),
-                pdfLink: this.$select('invoice.pdfLink as pdfLink')
+                pdfLink: this.$select('invoice.pdfLink as pdfLink'),
+                ocr: this.$select('invoice.ocr as ocr')
             }
         },
         methods: {
             doPreview(event) {
                 event.preventDefault();
-                if (this.pdfLink !== void 0) {
+                if (this.pdfLink !== void 0 && this.pdfLink !== null) {
                     let arr = this.pdfLink.split('/');
                     store.dispatch({
                         type: 'REMOVE_LINK',
@@ -95,7 +96,8 @@
                 let arr = this.pdfLink.split('/');
                 store.dispatch({
                     type: 'SAVE_INVOICE',
-                    pdf: arr[arr.length-1]
+                    pdf: arr[arr.length-1],
+                    ocr: this.ocr
                 });
                 store.dispatch({
                     type: 'REMOVE_LINK',

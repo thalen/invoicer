@@ -50,6 +50,7 @@ router.delete('/pdf/:link', function(req, res) {
 
 router.post('/pdf/create/:link', function(req, res) {
     var filepath = './src/assets/invoices/' + req.params.link;
+    var ocr = req.body.ocr;
     fs.readFile(filepath, function (err, data) {
         var myBucket = 'thalen.invoices.bucket';
         var s3bucket = new AWS.S3({params: {Bucket: myBucket}});
@@ -58,7 +59,7 @@ router.post('/pdf/create/:link', function(req, res) {
             Body: data,
             Metadata: {
                 'Content-Type': 'application/pdf',
-                'OCR': '1'
+                'OCR': ocr
             }
         };
         s3bucket.upload(params, function (err, data) {
@@ -140,7 +141,8 @@ router.post('/pdf/preview', function(req, res) {
                     }
                     res.json({
                         success: true,
-                        filepath: link
+                        filepath: link,
+                        ocr: maxValue + 1
                     });
                 });
             }).catch(function(error) {
