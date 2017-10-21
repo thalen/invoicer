@@ -24,7 +24,7 @@ const previewEpic = action$ =>
         {
             return Observable.ajax({
                 method: 'POST',
-                url: 'http://localhost:5000/api/pdf/preview',
+                url: '/api/pdf/preview',
                 body: {
                     'hours': action.model.hours,
                     'price': action.model.price,
@@ -44,7 +44,7 @@ const deleteTempFile = action$ =>
         {
             return Observable.ajax({
                 method: 'DELETE',
-                url: `http://localhost:5000/api/pdf/${action.asset}`
+                url: `/api/pdf/${action.asset}`
             }).map(linkRemoved);
         });
 
@@ -56,7 +56,7 @@ const saveInvoice = action$ =>
         {
             return Observable.ajax({
                 method: 'POST',
-                url: `http://localhost:5000/api/pdf/create/${action.pdf}`,
+                url: `/api/pdf/create/${action.pdf}`,
                 body: {
                     'ocr': action.ocr
                 }
@@ -71,7 +71,7 @@ const loadInvoices = action$ =>
         {
             return Observable.ajax({
                 method: 'GET',
-                url: 'http://localhost:5000/api/invoices'
+                url: '/api/invoices'
             }).map(invoicesLoaded);
         });
 
