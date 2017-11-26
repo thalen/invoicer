@@ -1,10 +1,12 @@
-import {Request, Response, Next, RequestHandler} from "restify";
+import {Next, Request, RequestHandler, Response} from "restify";
 
-export abstract class RestService {
-    abstract action(req: Request, res: Response);
+export interface RestService {
+    execute(req: Request, res: Response): void;
+}
 
-    respond: RequestHandler = (req: Request, res: Response, next: Next) => {
-        this.action(req, res);
+export function respondWith(service: RestService) : RequestHandler {
+    return (req: Request, res: Response, next: Next) => {
+        service.execute(req, res);
         next();
     };
 }

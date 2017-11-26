@@ -1,12 +1,11 @@
 import {RestService} from "./RestService";
 import {Request, Response} from "restify";
 
-export class DeletePdfService extends RestService {
-    action(req: Request, res: Response) {
-
+const DeletePdfService : RestService = {
+    execute: (req: Request, res: Response) => {
+        console.log("delete service");
+        res.send(200);
     }
+};
 
-    static instance(): RestService {
-        return new DeletePdfService();
-    }
-}
+export default DeletePdfService;
