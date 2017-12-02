@@ -1,7 +1,8 @@
 import * as restify from 'restify';
 import {Server} from 'restify';
 import DeletePdfService from "./services/DeletePdfService";
-import {respondWith} from "./services/RestService";
+import {callbackWith} from "./services/RestService";
+import {getInvoices, previewInvoice, uploadInvoice} from "./services/InvoicesService";
 
 const port = process.env.PORT || 5000;
 const api = '/api';
@@ -15,7 +16,13 @@ server.use((req, res, next) => {
     return next();
 });
 
-server.del(`${api}/pdf/:link`, respondWith(DeletePdfService));
+server.del(`${api}/pdf/:link`, callbackWith(DeletePdfService));
+
+server.get(`${api}/invoices`, callbackWith(getInvoices));
+
+server.post(`${api}/pdf/create/:link`, callbackWith(uploadInvoice));
+
+server.post(`${api}/pdf/preview`, callbackWith(previewInvoice));
 
 server.listen(port, () => {
     console.log('%s listening at %s', server.name, server.url);
