@@ -1,22 +1,25 @@
 import S3 = require("aws-sdk/clients/s3");
+import Invoice from "../../dto/Invoice";
 
 export interface AwsService {
-    listObjects(params: S3.Types.ListObjectsRequest) : Promise<S3.Types.ListObjectsOutput>;
-    getObject(params: S3.Types.GetObjectRequest) : Promise<S3.Types.GetObjectOutput>;
-    getNextInvoiceNumber() : Promise<number>;
+    listObjects(params: S3.Types.ListObjectsRequest): Promise<S3.Types.ListObjectsOutput>;
+
+    getObject(params: S3.Types.GetObjectRequest): Promise<S3.Types.GetObjectOutput>;
+
+    getNextInvoiceNumber(): Promise<number>;
 }
 
 class AwsServiceImpl implements AwsService {
 
-    private s3 : S3;
-    private bucket : string;
+    private s3: S3;
+    private bucket: string;
 
     private mapContent = async (content) => {
         let dataToDownload = {Bucket: this.bucket, Key: content.Key};
         return this.getObject(dataToDownload);
     };
 
-    constructor(s3:S3, bucket: string) {
+    constructor(s3: S3, bucket: string) {
         this.s3 = s3;
         this.bucket = bucket;
     }
@@ -47,21 +50,21 @@ class AwsServiceImpl implements AwsService {
 
     async getNextInvoiceNumber() {
         const shallowList = await this.listObjects({Bucket: this.bucket});
-        const detailedList = await Promise.all(shallowList.Contents.map(this.mapContent));
+        const contentList = shallowList.Contents ? shallowList.Contents : [];
+        const detailedList = await Promise.all(contentList.map(this.mapContent));
         let current = detailedList
-            .map(elem => elem.Metadata.ocr)
-            .reduce((maxValue, currentValue) => {
-            if (currentValue === undefined) {
-                return maxValue;
-            } else {
-                let intVal = parseInt(currentValue);
-                return intVal > maxValue ? intVal : maxValue;
-            }
-        }, 0);
+            .reduce((acc, current) => {
+                if (current.Metadata) {
+                    let intVal = parseInt(current.Metadata.ocr);
+                    return intVal > acc ? intVal : acc;
+                } else {
+                    return acc;
+                }
+            }, 0);
         return current + 1;
     }
 }
 
-export function getAwsService(s3:S3, bucket: string) {
+export function getAwsService(s3: S3, bucket: string) {
     return new AwsServiceImpl(s3, bucket);
-};
+}

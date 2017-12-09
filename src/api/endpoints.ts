@@ -9,6 +9,12 @@ const api = '/api';
 
 let server:Server = restify.createServer();
 
+server.use(restify.plugins.queryParser({
+    mapParams: true
+}));
+server.use(restify.plugins.bodyParser({
+    mapParams: true
+}));
 server.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
