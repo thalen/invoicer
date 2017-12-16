@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsc",
     "webpack": "webpack-dev-server",
-    "api": "npm run delay && nodemon dist/api/endpoints.js",
+    "api": "npm run delay && nodemon dist/api/App.js",
     "dev": "concurrently --kill-others \"tsc -w\" \"yarn webpack\" \"yarn api\"",
     "delay": "node ./node_modules/npm-delay 2000"
   },
@@ -57,7 +57,7 @@
     "numeral": "^2.0.6",
     "promise": "^8.0.1",
     "redux-observable": "^0.15.0",
-    "restify": "^6.3.4",
+    "restify": "6.3.4",
     "revue": "^3.0.0",
     "rxjs": "^5.4.3",
     "vue": "^2.4.2",

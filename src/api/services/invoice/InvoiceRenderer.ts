@@ -1,5 +1,5 @@
-import InvoiceRequest from "../../dto/InvoiceRequest";
-import InvoiceResponse from "../../dto/InvoiceResponse";
+import InvoiceRequest from "../../mappers/InvoiceRequest";
+import InvoiceResponse from "../../mappers/InvoiceResponse";
 import * as handlebars from 'express-handlebars';
 import * as moment from 'moment';
 import * as pdf from 'html-pdf';

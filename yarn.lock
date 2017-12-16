@@ -5341,7 +5341,7 @@ restify-errors@^5.0.0:
   optionalDependencies:
     safe-json-stringify "^1.0.3"
 
-restify@^6.3.4:
+restify@6.3.4:
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/restify/-/restify-6.3.4.tgz#097990b22ba40f02a074a7d4cb1c27690759e288"
   dependencies:

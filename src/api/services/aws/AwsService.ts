@@ -1,5 +1,5 @@
 import S3 = require("aws-sdk/clients/s3");
-import Invoice from "../../dto/Invoice";
+import Invoice from "../../domain/Invoice";
 
 export interface AwsService {
     listObjects(params: S3.Types.ListObjectsRequest): Promise<S3.Types.ListObjectsOutput>;
