@@ -1,5 +1,6 @@
 import * as restify from 'restify';
 import * as plugins from 'restify/lib/plugins';
+import * as logger from 'morgan';
 import {Server} from 'restify';
 import DeletePdfService from "./services/DeletePdfService";
 import {callbackWith} from "./services/RestService";
@@ -10,6 +11,7 @@ const api = '/api';
 
 let server:Server = restify.createServer();
 
+server.use(logger('dev'));
 server.use(plugins.queryParser({
     mapParams: true
 }));
