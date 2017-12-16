@@ -16,6 +16,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.2",
     "deku": "^2.0.0-rc7",
+    "dotenv": "^4.0.0",
     "file-loader": "^0.11.2",
     "node-bourbon": "^4.2.8",
     "node-neat": "^2.0.0-beta.0",
@@ -36,7 +37,7 @@
   "scripts": {
     "build": "tsc",
     "webpack": "webpack-dev-server",
-    "api": "npm run delay && nodemon dist/api/App.js",
+    "api": "npm run delay && nodemon dist/api/index_dev.js",
     "dev": "concurrently --kill-others \"tsc -w\" \"yarn webpack\" \"yarn api\"",
     "delay": "node ./node_modules/npm-delay 2000"
   },

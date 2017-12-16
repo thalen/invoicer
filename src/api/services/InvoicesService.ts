@@ -5,7 +5,14 @@ import * as fs from "fs";
 import {AwsService, getAwsService} from "./aws/AwsService";
 import {invoiceRenderer} from "./invoice/InvoiceRenderer";
 
-AWS.config.loadFromPath('./aws_config.json');
+AWS.config = new AWS.Config({
+    credentials: {
+        accessKeyId: process.env.aws_access_key,
+        secretAccessKey: process.env.aws_secret_access_key
+    }
+});
+
+AWS.config.region = process.env.aws_default_region;
 
 const BUCKET = 'thalen.invoices.bucket';
 
