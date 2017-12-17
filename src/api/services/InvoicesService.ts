@@ -5,20 +5,19 @@ import * as fs from "fs";
 import {AwsService, getAwsService} from "./aws/AwsService";
 import {invoiceRenderer} from "./invoice/InvoiceRenderer";
 
-AWS.config = new AWS.Config({
+const config = new AWS.Config({
     credentials: {
         accessKeyId: process.env.aws_access_key,
         secretAccessKey: process.env.aws_secret_access_key
-    }
+    },
+    region: process.env.aws_default_region
 });
-
-AWS.config.region = process.env.aws_default_region;
 
 const BUCKET = 'thalen.invoices.bucket';
 
 const getInvoices : RestService = {
     execute: (req: Request, res: Response) => {
-        let s3 = new AWS.S3();
+        let s3 = new AWS.S3(config);
         let params = {
             Bucket: BUCKET
         };
@@ -34,7 +33,7 @@ const uploadInvoice : RestService = {
         let filepath = `./src/assets/invoices/${req.params.link}`;
         let ocr = req.body.ocr;
         fs.readFile(filepath, (err, data) => {
-            let s3 = new AWS.S3();
+            let s3 = new AWS.S3(config);
             let params = {
                 Bucket: BUCKET,
                 Key: `/assets/invoices/${req.params.link}`,

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "Olle Thalen",
+  "description": "Invoicing app for Thalén solutions",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.122.0",
@@ -60,6 +61,14 @@
     "webpack": "webpack-dev-server",
     "api": "npm run delay && nodemon dist/api/index_dev.js",
     "dev": "concurrently --kill-others \"tsc -w\" \"yarn webpack\" \"yarn api\"",
-    "delay": "node ./node_modules/npm-delay 2000"
+    "delay": "node ./node_modules/npm-delay 2000",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": "8.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thalen/invoicer"
   }
 }
