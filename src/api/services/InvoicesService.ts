@@ -58,7 +58,7 @@ const uploadInvoice : RestService = {
 
 const previewInvoice : RestService = {
     execute: (req: Request, res: Response) => {
-        let service: AwsService = getAwsService(new AWS.S3(), BUCKET);
+        let service: AwsService = getAwsService(new AWS.S3(config), BUCKET);
         service.getNextInvoiceNumber().then((nextValue) => {
             invoiceRenderer.createPdf({
                 hours: req.body.hours,
