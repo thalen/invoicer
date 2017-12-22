@@ -26,6 +26,15 @@ export default function() {
         return next();
     });
 
+    server.get('/', plugins.serveStatic({
+        directory: `${__dirname}../../../bin`,
+        file: 'index.html'
+    }));
+
+    server.get(/\/assets\/(.*)?.*/, plugins.serveStatic({
+        directory: `${__dirname}../../`
+    }));
+
     server.del(`${api}/pdf/:link`, callbackWith(DeletePdfService));
 
     server.get(`${api}/invoices`, callbackWith(getInvoices));
