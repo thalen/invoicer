@@ -17,7 +17,7 @@ const loadTemplate = async function() {
 
 const toPdf = (html, options) => {
     let timestamp = moment().valueOf();
-    let filepath = `./src/assets/invoices/invoice_${timestamp}.pdf`;
+    let filepath = `./dist/assets/invoices/invoice_${timestamp}.pdf`;
     return new Promise((resolve) => {
         pdf.create(html, options).toFile(filepath, function(err) {
             console.log("pdf created");
