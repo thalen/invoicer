@@ -18,6 +18,10 @@ module.exports = {
             '/api': {
                 target: 'http://localhost:5000',
                 secure: false
+            },
+            '/assets': {
+                target: 'http://localhost:5000',
+                secure: false
             }
         }
     },

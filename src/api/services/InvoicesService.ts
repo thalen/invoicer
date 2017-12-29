@@ -30,7 +30,7 @@ const getInvoices : RestService = {
 
 const uploadInvoice : RestService = {
     execute: (req: Request, res: Response) => {
-        let filepath = `./src/assets/invoices/${req.params.link}`;
+        let filepath = `./dist/assets/invoices/${req.params.link}`;
         let ocr = req.body.ocr;
         fs.readFile(filepath, (err, data) => {
             let s3 = new AWS.S3(config);
