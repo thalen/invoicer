@@ -1,17 +1,24 @@
 <html>
     <head>
       <title>Invoice</title>
-  
+
+      <style>
+          .main-container {
+              width: 800px;
+          }
+
+          body {
+            zoom: 0.65;
+            color: inherit !important;
+          }
+          
+      </style>
       <style>
 
         /* Fix for rendering pdf in linux os */
         html {
             /*zoom: 0.75;*/
-            height: 0;
-            transform-origin: 0 0;
-            -webkit-transform-origin: 0 0;
-            transform: scale(0.75);
-            -webkit-transform: scale(0.75);
+
         }
 
         html, body {
