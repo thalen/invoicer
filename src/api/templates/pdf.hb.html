@@ -5,9 +5,9 @@
       <style>
 
         /* Fix for rendering pdf in linux os */
-        html {
+        /*html {
             zoom: 0.75;
-        }
+        }*/
 
         html, body {
           margin: 0 0 0 10mm;
@@ -19,6 +19,7 @@
           font-size: 16px;
           -webkit-print-color-adjust: exact;
           box-sizing: border-box;
+          zoom: 0.75;
         }
   
         .page {
@@ -233,8 +234,8 @@
               <span style="display:inline;margin-left:100px">{{amount}}</span>
             </div>
             <div>
-              <span style="font-weight:600">Totalt att betala:</span>
-              <span style="font-weight:600;display:inline;margin-left:142px">{{amount}}</span>
+              <span style="font-weight:bold">Totalt att betala:</span>
+              <span style="font-weight:bold;display:inline;margin-left:142px">{{amount}}</span>
             </div>
         </div>
   
