@@ -5,6 +5,7 @@ import {Server} from 'restify';
 import DeletePdfService from "./services/DeletePdfService";
 import {callbackWith} from "./services/RestService";
 import {getInvoices, previewInvoice, uploadInvoice} from "./services/InvoicesService";
+import authenticateService from './services/authenticate/AuthenticateService';
 
 export default function() {
     const port = process.env.PORT || 5000;
@@ -16,7 +17,7 @@ export default function() {
     server.use(plugins.queryParser({
         mapParams: true
     }));
-    server.use(plugins.bodyParser({
+    server.use(plugins.urlEncodedBodyParser({
         mapParams: true
     }));
     server.use((req, res, next) => {
@@ -26,6 +27,8 @@ export default function() {
         return next();
     });
 
+    server.post('/authenticate', callbackWith(authenticateService));
+
     server.get('/', plugins.serveStatic({
         directory: `${__dirname}../../../bin`,
         file: 'index.html'
@@ -34,6 +37,10 @@ export default function() {
     server.get(/\/assets\/(.*)?.*/, plugins.serveStatic({
         directory: `${__dirname}../../`
     }));
+
+    server.use((req, res, next) => {
+        next();
+    });
 
     server.del(`${api}/pdf/:link`, callbackWith(DeletePdfService));
 
