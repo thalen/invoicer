@@ -1,10 +1,15 @@
-export default function(state = {}, action) {
+export default function(state = {loggedIn: false}, action) {
     switch (action.type) {
-        case 'RECIEVE_PATHNAME':
-            return Object.assign({},
-                state,
-                { pathname: action.pathname }
-            )
+        case 'AUTHENTICATED':
+            return {
+                ...state,
+                loggedIn: true
+            };
+        case 'INVALID_CREDENTIALS':
+            return {
+                ...state,
+                loginFailed: true
+            };
         default:
             return state;
     }

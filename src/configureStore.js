@@ -9,10 +9,10 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
 
-import Vue from 'vue'
-import Revue from 'revue'
-import invoice from "./reducers/invoice";
+import Vue from 'vue';
+import Revue from 'revue';
 
 const loggerMiddleware = createLogger();
 
@@ -75,7 +75,25 @@ const loadInvoices = action$ =>
             }).map(invoicesLoaded);
         });
 
-const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice, loadInvoices));
+const loginDone = payload => ({ type: 'AUTHENTICATED', payload});
+const authenticate = action$ =>
+    action$.ofType('AUTHENTICATE')
+        .debounceTime(500)
+        .mergeMap(action => {
+            return Observable.ajax({
+                method: 'POST',
+                url: '/authenticate',
+                body: {
+                    user_id: action.user,
+                    password: action.password
+                }
+            }).map(loginDone).catch(error => Observable.of({
+                type: 'INVALID_CREDENTIALS',
+                payload: error.xhr.response
+            }));
+        });
+
+const epicMiddleware = createEpicMiddleware(combineEpics(previewEpic, deleteTempFile, saveInvoice, loadInvoices, authenticate));
 
 let store;
 function configureStore(initialState) {
