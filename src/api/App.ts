@@ -6,6 +6,7 @@ import DeletePdfService from "./services/DeletePdfService";
 import {callbackWith} from "./services/RestService";
 import {getInvoices, previewInvoice, uploadInvoice} from "./services/InvoicesService";
 import authenticateService from './services/authenticate/AuthenticateService';
+import * as jwt from 'jsonwebtoken';
 
 export default function() {
     const port = process.env.PORT || 5000;
@@ -20,12 +21,6 @@ export default function() {
     server.use(plugins.urlEncodedBodyParser({
         mapParams: true
     }));
-    server.use((req, res, next) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        res.setHeader("Access-Control-Allow-Headers", "Authorization, X-Requested-With");
-        return next();
-    });
 
     server.post('/authenticate', callbackWith(authenticateService));
 
@@ -38,17 +33,48 @@ export default function() {
         directory: `${__dirname}../../`
     }));
 
-    server.use((req, res, next) => {
-        next();
-    });
+    function verifyAuthentication(req, res, next) {
+        // check header or url parameters or post parameters for token
+        let token = (req.body ? req.body.token : undefined) || req.query.token || req.headers['authorization'];
+        if (req.headers['authorization']) {
+            let headerArr = token.split(' ');
+            token = headerArr.length > 0 ? headerArr[1].trim() : token;
+        }
 
-    server.del(`${api}/pdf/:link`, callbackWith(DeletePdfService));
+        // decode token
+        if (token) {
+            // verifies secret and checks exp
+            jwt.verify(token, process.env.secret, function (err, decoded) {
+                if (err) {
+                    res.send(403, {
+                        success: false,
+                        message: '´Failed to authenticate token.'
+                    });
+                    return next(false);
+                } else {
+                    // if everything is good, save to request for use in other routes
+                    req.decoded = decoded;
+                    next();
+                }
+            });
+        } else {
+            // if there is no token
+            // return an error
+            res.send(403, {
+                success: false,
+                message: 'No token provided.'
+            });
+            return next(false);
+        }
+    }
 
-    server.get(`${api}/invoices`, callbackWith(getInvoices));
+    server.del(`${api}/pdf/:link`, verifyAuthentication, callbackWith(DeletePdfService));
 
-    server.post(`${api}/pdf/create/:link`, callbackWith(uploadInvoice));
+    server.get(`${api}/invoices`,  verifyAuthentication, callbackWith(getInvoices));
 
-    server.post(`${api}/pdf/preview`, callbackWith(previewInvoice));
+    server.post(`${api}/pdf/create/:link`, verifyAuthentication, callbackWith(uploadInvoice));
+
+    server.post(`${api}/pdf/preview`, verifyAuthentication, callbackWith(previewInvoice));
 
     server.listen(port, () => {
         console.log('%s listening at %s', server.name, server.url);

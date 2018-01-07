@@ -11,11 +11,33 @@
                 <li>
                     <router-link to="/invoices">Mina fakturor</router-link>
                 </li>
+                <li v-if="loggedIn">
+                    <a href="" v-on:click="logout">Logga ut</a>
+                </li>
             </ul>
         </div>
         <div id="main" class="layout-main">
             <router-view></router-view>
         </div>
     </div>
-
 </template>
+<script>
+    import {getStore} from '../../configureStore';
+    const store = getStore();
+    export default {
+        name: 'app',
+        data () {
+            return {
+                loggedIn: this.$select('router.loggedIn as loggedIn')
+            }
+        },
+        methods: {
+            logout() {
+                store.dispatch({
+                    type: 'LOGOUT'
+                });
+                this.$router.push('login');
+            }
+        }
+    }
+</script>

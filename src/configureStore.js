@@ -13,6 +13,7 @@ import 'rxjs/add/operator/catch';
 
 import Vue from 'vue';
 import Revue from 'revue';
+import authenticationProvider from './services/authenticationProvider';
 
 const loggerMiddleware = createLogger();
 
@@ -22,7 +23,7 @@ const previewEpic = action$ =>
         .debounceTime(500)
         .mergeMap(action =>
         {
-            return Observable.ajax({
+            return Observable.ajax(authenticationProvider({
                 method: 'POST',
                 url: '/api/pdf/preview',
                 body: {
@@ -31,7 +32,7 @@ const previewEpic = action$ =>
                     'dueDate': action.model.dueDate,
                     'invoiceMonth': action.model.invoiceMonth
                 },
-            }).map(pdfCreated);
+            })).map(pdfCreated);
         }
 
         );
@@ -42,10 +43,10 @@ const deleteTempFile = action$ =>
         .debounceTime(500)
         .mergeMap(action =>
         {
-            return Observable.ajax({
+            return Observable.ajax(authenticationProvider({
                 method: 'DELETE',
                 url: `/api/pdf/${action.asset}`
-            }).map(linkRemoved);
+            })).map(linkRemoved);
         });
 
 const invoiceSaved = payload => ({ type: 'INVOICE_SAVED', payload});
@@ -54,13 +55,13 @@ const saveInvoice = action$ =>
         .debounceTime(500)
         .mergeMap(action =>
         {
-            return Observable.ajax({
+            return Observable.ajax(authenticationProvider({
                 method: 'POST',
                 url: `/api/pdf/create/${action.pdf}`,
                 body: {
                     'ocr': action.ocr
                 }
-            }).map(invoiceSaved);
+            })).map(invoiceSaved);
         });
 
 const invoicesLoaded = payload => ({ type: 'INVOICES_LOADED', payload});
@@ -69,10 +70,10 @@ const loadInvoices = action$ =>
         .debounceTime(500)
         .mergeMap(action =>
         {
-            return Observable.ajax({
+            return Observable.ajax(authenticationProvider({
                 method: 'GET',
                 url: '/api/invoices'
-            }).map(invoicesLoaded);
+            })).map(invoicesLoaded);
         });
 
 const loginDone = payload => ({ type: 'AUTHENTICATED', payload});

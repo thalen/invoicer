@@ -1,7 +1,7 @@
 <template>
-    <div class="invoice layout-main">
+    <div class="login layout-main">
         <h3>Logga in</h3>
-        <fieldset class="invoice__form">
+        <fieldset class="login__form">
             <p>Ange inloggningsuppgifter</p>
 
             <form>
@@ -17,7 +17,7 @@
 
                 <button v-on:click="onSubmit">Logga in</button>
             </form>
-            <span v-if="loginFailed" class="error">Inloggningen misslyckades</span>
+            <span v-if="loginFailed" class="login__error">Inloggningen misslyckades</span>
         </fieldset>
     </div>
 </template>

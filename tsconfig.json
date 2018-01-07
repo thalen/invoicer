@@ -4,7 +4,7 @@
     "module": "commonjs",
     "strict": false,
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "dist/api",
     "noImplicitAny": false
   },
   "include": [
