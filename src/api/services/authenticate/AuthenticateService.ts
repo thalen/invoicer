@@ -74,14 +74,13 @@ const authenticate : RestService = {
             if (result === null) {
                 res.send(401);
             } else {
+                console.log(`user ${req.body.user_id} authenticated`);
                 res.send({
                     success: true,
                     token: result
                 });
             }
         });
-
-
     }
 };
 
