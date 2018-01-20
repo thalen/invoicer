@@ -1,6 +1,6 @@
 {
   "name": "invoicer",
-  "version": "1.0.0-rc",
+  "version": "1.0.0",
   "main": "index.js",
   "author": "Olle Thalen",
   "description": "Invoicing app for Thalén solutions",
