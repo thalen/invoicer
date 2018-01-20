@@ -1,3 +1,6 @@
 node_modules
 .idea
 dist
+src/assets/invoices
+aws_config.env
+yarn-error.log

@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
@@ -7,27 +9,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist/assets'),
-        filename: '[name].bundle.js',
+        filename: '[name].bundle.min.js',
         publicPath: '/assets'
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, './src'),
-        port: 3000,
-        historyApiFallback: true,
-        proxy: {
-            '/authenticate': {
-                target: 'http://localhost:5000',
-                secure: false
-            },
-            '/api': {
-                target: 'http://localhost:5000',
-                secure: false
-            },
-            '/assets': {
-                target: 'http://localhost:5000',
-                secure: false
-            }
-        }
     },
     module: {
         rules: [
@@ -48,17 +31,20 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015']
+                }
             },
             {
                 test: /\.scss$/,
                 use: [{
-                        loader: "style-loader" // creates style nodes from JS strings
-                    }, {
-                        loader: "css-loader" // translates CSS into CommonJS
-                    }, {
-                        loader: "sass-loader" // compiles Sass to CSS
-                    }
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }
                 ]
             },
             {
@@ -78,5 +64,18 @@ module.exports = {
     performance: {
         hints: false
     },
-    devtool: '#eval-source-map'
+    devtool: '#source-map',
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new UglifyJSPlugin({
+            sourceMap: true
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        })
+    ]
 };

@@ -1,0 +1,272 @@
+<html>
+    <head>
+      <title>Invoice</title>
+
+      <style>
+
+        /* Fix for rendering pdf in linux os */
+        html {
+            zoom: 0.75;
+        }
+
+        html, body {
+          margin: 0 0 0 10mm;
+          padding: 0;
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-weight: 500;
+          font-style: normal;
+          font-variant: normal;
+          font-size: 16px;
+          -webkit-print-color-adjust: exact;
+          box-sizing: border-box;
+        }
+  
+        .page {
+          position: fixed;
+          display: block;
+          page-break-after: auto;
+          margin: 50px;
+          overflow: hidden;
+        }
+  
+        @media print {
+          .page {
+            margin: 0;
+            height: 100%;
+            width: 100%;
+          }
+        }
+  
+        table {
+            table-layout: fixed;
+            width: 400px;
+            border-collapse: collapse;
+        }
+  
+        th, td {
+          width: 200px;
+        }
+  
+        th {
+          text-align: left;
+        }
+  
+        th.right {
+          text-align: right;
+        }
+  
+        td.left {
+          text-align: left;
+        }
+  
+        td.right {
+            text-align: right;
+        }
+  
+        table.spec {
+            width: 700px;
+        }
+        table.spec > tbody > tr > th {
+          width: 100px;
+        }
+  
+        tr.spec {
+            border-top: solid 1px black;
+        }
+  
+        tr.spec > td {
+            width: 100px;
+        }
+  
+        th.xs {
+          width: 50px !important;
+        }
+  
+        td.xs {
+          width: 50px !important;
+        }
+  
+        th.md {
+          width: 150px !important;
+        }
+  
+        td.md {
+          width: 150px !important;
+        }
+  
+        table#myInfo th.md {
+          width: 230px !important;
+        }
+  
+        table#myInfo td.md {
+          width: 230px !important;
+        }
+  
+        div.address > span {
+          margin-right: 50px;
+          display: block;
+        }
+  
+        #header {
+          position: absolute;
+          top: 0;
+        }
+  
+        #pageBody {
+          position: absolute;
+          top: 600px;
+        }
+  
+        #footer {
+          position: absolute;
+          bottom: 10px;
+        }
+      </style>
+    </head>
+  
+    <body>
+      <div class="page">
+      <div id="header">
+  
+        <div style="float:right;margin-right:140px;margin-top:30px">Godkänd för F-skatt</div>
+        <h1 style="margin-left:0;margin-bottom: 0">Thalén solutions AB</h1>
+  
+        <span style="margin-left:1mm">Drottningholmsvägen 55</span>
+        <br>
+        <span style="margin-left:1mm">112 19 Stockholm</span>
+        <br>
+        <span style="margin-left:1mm">Telefon: 073-670 21 20</span>
+        <br>
+        <span style="margin-left:1mm">E-post: olle@thalen-solutions.com</span>
+        <div class="address" style="float:right;margin-top:55px">
+          <span>
+            Right people group Digital GmbH
+          </span>
+          <span>
+            Ehrenbergstrasse 7
+          </span>
+          <span>
+            10245 Berlin
+          </span>
+  
+          <span style="text-transform:uppercase">
+            Germany
+          </span>
+        </div>
+        <div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+        <h3 style="text-transform:uppercase">Faktura</h3>
+        <table style="margin-top:10mm">
+            <tr>
+              <td>Fakturadatum:</td>
+              <td>{{invoiceDate}}</td>
+            </tr>
+            <tr>
+              <td>Organisationsnr:</td>
+              <td>HRB 179863 B</td>
+            </tr>
+            <tr>
+              <td>Moms regnr:</td>
+              <td>DE 308384673</td>
+            </tr>
+            <tr>
+              <td>Kundnummer:</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td style="font-weight:bold">OCR/Fakturanr:</td>
+              <td style="font-weight:bold">{{ocr}}</td>
+            </tr>
+            <tr>
+              <td>Betalningsvillkor:</td>
+              <td>36 dagar netto</td>
+            </tr>
+            <tr>
+              <td>Förfallodatum:</td>
+              <td>{{dueDate}}</td>
+            </tr>
+            <tr>
+              <td>Dröjsmålsränta:</td>
+              <td>7,5%</td>
+            </tr><tr>
+              <td>Valuta:</td>
+              <td>SEK</td>
+            </tr>
+            <tr>
+              <td>Er referens:</td>
+              <td>Emil Byström</td>
+            </tr>
+            <tr>
+              <td>Vår referens:</td>
+              <td>Olle Thalén</td>
+            </tr>
+        </table>
+      </div>
+      <div id="pageBody">
+        <strong>Specifikation:</strong>
+        <br>
+        Resurskonsult IT, Folksam ömsesidig sakförsäkring. Referens Ework: 106025
+        <br>
+        Reverse Charge VAT
+        <table class="spec" style="margin-top:15px">
+        <tr>
+          <th>Benämning</th>
+          <th>Artikelkod</th>
+          <th class="xs">Antal</th>
+          <th class="xs">Enhet</th>
+          <th class="right">á-pris</th>
+          <th class="md right">Summa exl. moms</th>
+          <th class="right">Moms-%</th>
+        </tr>
+        <tr class="spec">
+          <td>Olle Thalén</td>
+          <td>{{invoiceMonth}}</td>
+          <td class="xs">{{hours}}</td>
+          <td class="xs">Tim</td>
+          <td class="right">{{price}}</td>
+          <td class="md right">{{amount}}</td>
+          <td class="right">0</td>
+        </tr>
+        </table>
+        <div style="position:relative;float:right;margin-top:75px;">
+            <div>
+              <span>Slutsumma exkl. moms:</span>
+              <span style="display:inline;margin-left:100px">{{amount}}</span>
+            </div>
+            <div>
+              <span style="font-weight:bold">Totalt att betala:</span>
+              <span style="font-weight:bold;display:inline;margin-left:142px">{{amount}}</span>
+            </div>
+        </div>
+  
+      </div>
+      <div id="footer">
+      <div style="width:700px;border-bottom: 1px solid #b5b5b5;"></div>
+      <table id="myInfo" style="margin-top:15px">
+      <tr>
+        <th class="md">Namn</th>
+        <th class="md">Organisationsnr</th>
+        <th class="md">VAT-nr</th>
+      </tr>
+      <tr>
+        <td class="md">Thalén solutions AB</td>
+        <td class="md">559117-1631</td>
+        <td class="md">SE559117163101</td>
+      </tr>
+      <tr style="height:5px"></tr>
+      <tr>
+        <th class="md">Bankkonto</th>
+        <th class="md">BIC</th>
+        <th class="md">IBAN</th>
+      </tr>
+      <tr>
+        <td class="md">5212 10 336 10</td>
+        <td class="md">ESSESESS</td>
+        <td class="md">SE4550000000052121033610</td>
+      </tr>
+      </table>
+    </div>
+  </div>
+    </body>
+  
+  </html>
+  

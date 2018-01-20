@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "strict": false,
+    "moduleResolution": "node",
+    "outDir": "dist/api",
+    "noImplicitAny": false
+  },
+  "include": [
+    "typings/index.d.ts",
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

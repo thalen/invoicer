@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "restify": "registry:dt/restify#2.0.0+20170317170827"
+  }
+}

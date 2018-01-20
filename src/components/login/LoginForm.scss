@@ -1,0 +1,24 @@
+.login {
+
+  &__form {
+    background: #f7f7f7;
+    border: 1px solid #DDD;
+    margin: 0 0 .75em;
+    padding: 1.5em;
+  }
+
+  &__notification {
+    background: forestgreen;
+    border: 1px solid #DDD;
+    height: 30px;
+  }
+
+  &__error {
+    margin-top: 25px;
+    border: 3px solid #f59999;
+    background-color: white;
+    display: block;
+    padding: 10px 10px;
+  }
+
+}
