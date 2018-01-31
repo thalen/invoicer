@@ -32,7 +32,10 @@ const uploadInvoice : RestService = {
     execute: (req: Request, res: Response) => {
         let filepath = `./dist/assets/invoices/${req.params.link}`;
         let ocr = req.body.ocr;
+        console.log('filepath: ' + filepath);
         fs.readFile(filepath, (err, data) => {
+            console.log('err: ' + err);
+            console.log('data: ' + data);
             let s3 = new AWS.S3(config);
             let params = {
                 Bucket: BUCKET,
