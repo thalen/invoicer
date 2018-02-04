@@ -30,31 +30,47 @@ const getInvoices : RestService = {
 
 const uploadInvoice : RestService = {
     execute: (req: Request, res: Response) => {
-        let filepath = `./dist/assets/invoices/${req.params.link}`;
-        let ocr = req.body.ocr;
-        console.log('filepath: ' + filepath);
-        fs.readFile(filepath, (err, data) => {
-            console.log('err: ' + err);
-            console.log('data: ' + data);
-            let s3 = new AWS.S3(config);
-            let params = {
-                Bucket: BUCKET,
-                Key: `/assets/invoices/${req.params.link}`,
-                Body: data,
-                Metadata: {
-                    'Content-Type': 'application/pdf',
-                    'OCR': ocr
-                }
-            };
-            s3.upload(params, (err, data) => {
+        const filepath = `./dist/assets/invoices/${req.params.link}`;
+        const ocr = req.body.ocr;
+        let awaitUpload = new Promise((resolve, reject) => {
+            fs.readFile(filepath, (err, data) => {
                 if (err) {
-                    console.log('ERROR MSG: ', err);
-                    res.status(500).send(err);
-                } else {
-                    console.log('Successfully uploaded data');
-                    res.send(200);
+                    reject(err);
+                    return;
+                }
+                let s3 = new AWS.S3(config);
+                let params = {
+                    Bucket: BUCKET,
+                    Key: `/assets/invoices/${req.params.link}`,
+                    Body: data,
+                    Metadata: {
+                        'Content-Type': 'application/pdf',
+                        'OCR': ocr
+                    }
+                };
+                s3.upload(params, (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        });
+        const removeFile = () => {
+            fs.unlink(filepath, (err) => {
+                if (err) {
+                    console.log(`Failed to remove file, reason: ${err}`);
                 }
             });
+        };
+        awaitUpload.then(() => {
+            removeFile();
+            res.send(200);
+        }).catch((err) => {
+            removeFile();
+            console.log(`Error MSG: ${err}`);
+            res.send(500, err);
         });
     }
 };

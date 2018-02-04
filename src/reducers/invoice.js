@@ -28,7 +28,12 @@ export default function(state = {}, action) {
         case 'INVOICE_SAVED':
             return Object.assign({},
                 state,
-                { showPdf: false }
+                {
+                    showPdf: false,
+                    linkRemoved: true,
+                    pdfLink: null,
+                    ocr: null
+                }
             );
         case 'INVOICES_LOADED':
             let values = action.payload.response.map((elem) => {

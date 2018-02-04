@@ -7,7 +7,7 @@ const DeletePdfService : RestService = {
         let filepath = `./dist/assets/invoices/${req.params.link}`;
         fs.unlink(filepath, (err) => {
             if (err) {
-                res.status(500).send(err);
+                res.send(500, err);
             } else {
                 res.send(200);
             }

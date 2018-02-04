@@ -99,10 +99,6 @@
                     pdf: arr[arr.length-1],
                     ocr: this.ocr
                 });
-                store.dispatch({
-                    type: 'REMOVE_LINK',
-                    asset: arr[arr.length-1]
-                });
             }
         }
     }
