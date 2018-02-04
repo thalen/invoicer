@@ -1,5 +1,5 @@
 $article-layout-grid: (
-        columns: 1,
+        columns: 12,
         gutter: 2rem,
 );
 
@@ -9,29 +9,67 @@ $article-layout-grid--tablet-up: (
         media: "(min-width: 768px)",
 );
 
+$menu-grid: (
+        columns: 4,
+        gutter: 10px,
+        media: "(min-width: 280px)",
+);
+
+$menu-grid2: (
+        columns: 3,
+        gutter: 10px,
+        media: "(min-width: 350px)",
+);
+
 #main {
   @include grid-container;
 }
 
+/*
 .layout-top {
   @include grid-column(1, $article-layout-grid);
   margin-bottom: 2rem;
   height: 10rem;
 }
-
+*/
 .layout-sidebar {
-  @include grid-column(1, $article-layout-grid);
-  margin-bottom: 2rem;
+  max-width: 400px;
 
-  @include grid-media($article-layout-grid--tablet-up) {
-    @include grid-column(1);
+  @include grid-media($menu-grid) {
+    .layout-sidebar__item1 {
+      @include grid-column(2);
+    }
+
+    .layout-sidebar__item2 {
+      @include grid-column(2);
+    }
+
   }
 
-  height: 20rem;
+}
+
+.layout-sidebar--loggedin {
+  max-width: 400px;
+
+  @include grid-media($menu-grid2) {
+    .layout-sidebar__item1 {
+      @include grid-column(1);
+    }
+
+    .layout-sidebar__item2 {
+      @include grid-column(1);
+    }
+
+    .layout-sidebar__item3 {
+      @include grid-column(1);
+    }
+  }
+
 }
 
 .layout-main {
-  @include grid-column(1, $article-layout-grid);
+  margin-top: 35px;
+  @include grid-column(12, $article-layout-grid);
 
   @include grid-media($article-layout-grid--tablet-up) {
     @include grid-column(4);

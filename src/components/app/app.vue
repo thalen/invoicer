@@ -1,24 +1,27 @@
 <template>
     <div id="app">
+        <!--
         <div class="layout-top">
             <h1>Hantering av mina fakturor</h1>
         </div>
-        <div id="navigate" class="layout-sidebar">
-            <ul>
-                <li>
-                    <router-link to="/invoice">Fakturera</router-link>
-                </li>
-                <li>
-                    <router-link to="/invoices">Mina fakturor</router-link>
-                </li>
-                <li v-if="loggedIn">
-                    <a href="" v-on:click="logout">Logga ut</a>
-                </li>
-            </ul>
+        -->
+        <div id="navigate" v-bind:class="{ 'layout-sidebar': !loggedIn, 'layout-sidebar--loggedin': loggedIn }">
+
+            <div class="layout-sidebar__item1">
+                <router-link to="/invoice">Fakturera</router-link>
+            </div>
+            <div class="layout-sidebar__item2">
+                <router-link to="/invoices">Mina fakturor</router-link>
+            </div>
+            <div v-if="loggedIn" class="layout-sidebar__item3">
+                <a href="" v-on:click="logout">Logga ut</a>
+            </div>
         </div>
+
         <div id="main" class="layout-main">
             <router-view></router-view>
         </div>
+
     </div>
 </template>
 <script>
