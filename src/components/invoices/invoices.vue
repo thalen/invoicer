@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h3>Alla fakturor</h3>
+    <div class="invoices">
+        <h3 class="invoices__header">Alla fakturor</h3>
         <table>
             <tbody>
             <tr>
@@ -21,6 +21,7 @@
 
 </template>
 <script>
+    import './invoices.scss';
     import {getStore} from '../../configureStore';
     let store = getStore();
     export default {
