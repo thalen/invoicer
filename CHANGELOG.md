@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## 1.2.0 - 2018-02-17
+
 ### Changed
 - updated gui, responsive menu
 - updated grid
