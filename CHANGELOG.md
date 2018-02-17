@@ -1,5 +1,14 @@
 # Invoice hr-system
 
+## unreleased
+
+### Changed
+- updated gui, responsive menu
+- updated grid
+
+### Added
+- label property in invoices list
+
 ## 1.0.1
 
 ### Fixed

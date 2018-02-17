@@ -1,5 +1,5 @@
 <template>
-    <div class="invoices">
+    <div class="invoices layout-main">
         <h3 class="invoices__header">Alla fakturor</h3>
         <table>
             <tbody>
@@ -7,13 +7,13 @@
                 <th>
                     Namn
                 </th>
-                <th>
+                <th class="invoices__table-align">
                     Skapad
                 </th>
             </tr>
             <tr v-for="item in invoices">
-                <td>{{item.id}}</td>
-                <td>{{item.created}}</td>
+                <td>{{item.label}}</td>
+                <td class="invoices__table-align">{{item.created}}</td>
             </tr>
             </tbody>
         </table>

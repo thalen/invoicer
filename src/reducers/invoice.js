@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import subMonth from 'date-fns/sub_months';
 
 export default function(state = {}, action) {
     switch (action.type) {
@@ -36,17 +37,39 @@ export default function(state = {}, action) {
                 }
             );
         case 'INVOICES_LOADED':
-            let values = action.payload.response.map((elem) => {
+            const values = action.payload.response.map((elem) => {
                 return {
                     id: elem.Key,
+                    timestamp: new Date(elem.LastModified),
                     created: format(elem.LastModified, 'YYYY-MM-DD')
                 };
             });
 
+            const copy = [...values];
+            copy.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+            let startDate = copy[0].timestamp;
+            const addLabel = (list, currentDate) => {
+                const elem = list[0];
+                const orig = values.find(a => a.id === elem.id);
+
+                const update = {
+                    ...orig,
+                    label: `thalen_${format(currentDate, 'YYYYMMDD')}.pdf`
+                };
+                if (list.length > 1) {
+                    const retval = addLabel(list.splice(1), subMonth(currentDate, 1));
+                    retval.push(update);
+                    return retval;
+                } else {
+                    return [update];
+                }
+            };
+            const invoices = addLabel(copy, startDate);
+
             return Object.assign({},
                 state,
                 {
-                    invoices: values
+                    invoices
                 }
             );
         default:

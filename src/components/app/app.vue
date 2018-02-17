@@ -7,7 +7,7 @@
             <div class="lg-col-8">
 
 
-                <div id="navigate" v-bind:class="{ 'layout-sidebar': !loggedIn, 'layout-sidebar--loggedin': loggedIn }">
+                <div id="navigate" class="layout-sidebar" v-if="loggedIn">
 
                     <div class="layout-sidebar__item">
                         <router-link class="layout-sidebar__item__link" to="/invoice">Fakturera</router-link>
@@ -15,7 +15,7 @@
                     <div class="layout-sidebar__item">
                         <router-link class="layout-sidebar__item__link" to="/invoices">Mina fakturor</router-link>
                     </div>
-                    <div v-if="loggedIn" class="layout-sidebar__item">
+                    <div class="layout-sidebar__item">
                         <a class="layout-sidebar__item__link" href="" v-on:click="logout">Logga ut</a>
                     </div>
                 </div>

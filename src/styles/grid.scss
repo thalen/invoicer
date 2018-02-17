@@ -16,12 +16,6 @@ $article-layout-grid--tablet-up: (
 );
 
 $menu-grid: (
-        columns: 4,
-        gutter: 2px,
-        media: "(min-width: 280px)",
-);
-
-$menu-grid2: (
         columns: 3,
         gutter: 2px,
         media: "(min-width: 350px)",
@@ -42,16 +36,6 @@ $menu-grid2: (
 .layout-sidebar {
 
   @include grid-media($menu-grid) {
-    .layout-sidebar__item {
-      @include grid-column(2);
-    }
-  }
-
-}
-
-.layout-sidebar--loggedin {
-
-  @include grid-media($menu-grid2) {
     .layout-sidebar__item {
       @include grid-column(1);
     }
