@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const WebpackAutoInject = require('webpack-auto-inject-version');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
@@ -76,6 +77,13 @@ module.exports = {
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true
+        }),
+        new WebpackAutoInject({
+            // options
+            // example:
+            components: {
+                AutoIncreaseVersion: false
+            }
         })
     ]
 };
