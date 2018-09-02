@@ -15,8 +15,8 @@
                     <input v-model="password" type="password" id="pwd">
                 </p>
 
-                <button v-on:click="onSubmit">Logga in</button>
-
+                <v-btn v-on:click="onSubmit" color="info">Logga in</v-btn>
+                
             </form>
             <span v-if="loginFailed" class="login__error">Inloggningen misslyckades</span>
         </fieldset>

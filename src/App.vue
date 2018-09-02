@@ -1,92 +1,71 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left="clipped"
-    >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-content>
-      <router-view/>
-    </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
-  </v-app>
+  <div id="app">
+
+    <v-app>
+      <div id="main">
+
+        <div class="lg-col-2">&nbsp;</div>
+        <div class="lg-col-8">
+
+
+          <div id="navigate" class="layout-sidebar" v-if="loggedIn">
+
+            <div class="layout-sidebar__item">
+              <router-link class="layout-sidebar__item__link" to="/invoice">Fakturera</router-link>
+              <!--
+              <v-menu offset-y>
+                <v-btn
+                        slot="activator"
+                        color="primary"
+                        dark
+                >
+                  Fakturera
+                </v-btn>
+                <v-list>
+                  <v-list-tile
+                          @click=""
+                  >
+                    <v-list-tile-title>Skapa faktura</v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title>Inställningar</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+              -->
+            </div>
+            <div class="layout-sidebar__item">
+              <router-link class="layout-sidebar__item__link" to="/invoices">Mina fakturor</router-link>
+            </div>
+            <div class="layout-sidebar__item">
+              <a class="layout-sidebar__item__link" href="" v-on:click="logout">Logga ut</a>
+            </div>
+          </div>
+          <router-view></router-view>
+        </div>
+        <div class="lg-col-2">&nbsp;</div>
+      </div>
+    </v-app>
+  </div>
 </template>
-
 <script>
+    import { getStore } from "./configureStore";
 
-export default {
-  name: 'App',
-  data () {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
-}
+    const store = getStore();
+    export default {
+        name: "App",
+        data() {
+            return {
+                loggedIn: this.$select("router.loggedIn as loggedIn")
+            };
+        },
+        methods: {
+            logout() {
+                store.dispatch({
+                    type: "LOGOUT"
+                });
+                this.$router.push("login");
+            }
+        }
+    };
 </script>

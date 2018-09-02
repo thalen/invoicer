@@ -7,6 +7,16 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bourbon-bitters": "1.2.1",
+    "date-fns": "^1.29.0",
+    "node-bourbon": "4.2.8",
+    "node-neat": "^2.0.0-beta.0",
+    "redux": "3.6.0",
+    "redux-logger": "3.0.6",
+    "redux-observable": "0.15.0",
+    "redux-thunk": "2.2.0",
+    "revue": "3.0.0",
+    "rxjs": "5.4.3",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.19"

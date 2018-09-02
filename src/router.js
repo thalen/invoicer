@@ -1,25 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+
+import Invoice from "./components/invoice/Invoice.vue";
+import invoices from "./components/invoices/invoices.vue";
+import LoginForm from "./components/login/LoginForm.vue";
+
+import { getStore } from "./configureStore";
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = new Router({
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      { path: "", component: Invoice, name: "home" },
+      { path: "/invoice", component: Invoice, name: "invoice" },
+      { path: "/invoices", component: invoices, name: "invoices" },
+      { path: "/login", component: LoginForm, name: "login" }
   ]
-})
+});
+const store = getStore();
+router.beforeEach((to, from, next) => {
+    if (!store.state.router.loggedIn && to.name !== "login") {
+        next("/login");
+    } else {
+        next();
+    }
+});
+
+export default router;
