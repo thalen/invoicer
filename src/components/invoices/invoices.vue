@@ -21,26 +21,26 @@
 
 </template>
 <script>
-    import './invoices.scss';
-    import {getStore} from '../../configureStore';
-    let store = getStore();
-    export default {
-        data () {
-            return {
-                invoices: this.$select('invoice.invoices as invoices')
-            }
-        },
-        created () {
-            // fetch the data when the view is created and the data is
-            // already being observed
-            this.fetchData()
-        },
-        methods: {
-            fetchData () {
-                store.dispatch({
-                    type: 'LOAD_INVOICES'
-                });
-            }
-        }
+import "./invoices.scss";
+import { getStore } from "../../configureStore";
+let store = getStore();
+export default {
+  data() {
+    return {
+      invoices: this.$select("invoice.invoices as invoices")
+    };
+  },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      store.dispatch({
+        type: "LOAD_INVOICES"
+      });
     }
+  }
+};
 </script>

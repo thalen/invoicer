@@ -1,17 +1,16 @@
-## Invoicer
-Application for creating invoices
+# invoicer
 
-### Stack spec
-* vue, redux (revue), redux-observable, rxjs
-* sass, bourbon, neat, bitters
-* webpack, es6, babel
-* nodejs, express, html-pdf
+## Project setup
+```
+yarn install
+```
 
-Setup:
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
 
-```javascript
-yarn            //setup
-yarn dev        //starts webpack dev server and backend routes
-yarn webpack    //starts frontend
-yarn api        //starts backend
+### Compiles and minifies for production
+```
+yarn run build
 ```
