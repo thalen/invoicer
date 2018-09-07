@@ -4,19 +4,40 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build && tsc",
+    "api": "./node_modules/nodemon/bin/nodemon.js",
+    "startApi": "ts-node src/api/index_dev.ts"
   },
   "dependencies": {
+    "@types/node": "^8.0.53",
+    "@types/restify": "^5.0.6",
+    "aws-sdk": "^2.122.0",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.15.0",
     "bourbon-bitters": "1.2.1",
     "date-fns": "^1.29.0",
+    "dotenv": "^4.0.0",
+    "express": "4.13.4",
+    "express-handlebars": "3.0.0",
+    "history": "^2.0.0",
+    "html-pdf": "2.2.0",
+    "jsonwebtoken": "^8.1.0",
+    "marked": "^0.3.6",
+    "moment": "^2.18.1",
+    "morgan": "^1.9.0",
     "node-bourbon": "4.2.8",
     "node-neat": "^2.0.0-beta.0",
+    "numeral": "^2.0.6",
+    "promise": "^8.0.1",
+    "redis": "^2.8.0",
     "redux": "3.6.0",
     "redux-logger": "3.0.6",
     "redux-observable": "0.15.0",
     "redux-thunk": "2.2.0",
+    "restify": "6.3.4",
     "revue": "3.0.0",
     "rxjs": "5.4.3",
+    "typescript": "^2.6.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.19"
@@ -26,8 +47,13 @@
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
     "node-sass": "^4.9.0",
+    "nodemon": "^1.12.1",
     "sass-loader": "^7.0.1",
+    "ts-node": "7.0.1",
     "vue-cli-plugin-vuetify": "^0.1.6",
     "vue-template-compiler": "^2.5.17"
+  },
+  "engines": {
+    "node": "8.11.4"
   }
 }

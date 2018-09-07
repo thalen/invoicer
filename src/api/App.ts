@@ -25,12 +25,16 @@ export default function() {
     server.post('/authenticate', callbackWith(authenticateService));
 
     server.get('/', plugins.serveStatic({
-        directory: `${__dirname}../../../bin`,
+        directory: `${__dirname}../../../dist`,
         file: 'index.html'
     }));
 
-    server.get(/\/assets\/(.*)?.*/, plugins.serveStatic({
-        directory: `${__dirname}../../`
+    server.get(/\/css\/(.*)?.*/, plugins.serveStatic({
+        directory: `${__dirname}../../../dist`
+    }));
+
+    server.get(/\/js\/(.*)?.*/, plugins.serveStatic({
+        directory: `${__dirname}../../../dist`
     }));
 
     function verifyAuthentication(req, res, next) {
