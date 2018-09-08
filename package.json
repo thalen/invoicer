@@ -7,6 +7,7 @@
     "build": "vue-cli-service build && tsc",
     "api": "./node_modules/nodemon/bin/nodemon.js",
     "startApi": "ts-node src/api/index_dev.ts",
+    "dev": "concurrently --kill-others \"yarn api\" \"yarn serve\"",
     "postinstall": "yarn build"
   },
   "dependencies": {
@@ -52,7 +53,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.12.1",
-    "ts-node": "7.0.1"
+    "ts-node": "7.0.1",
+    "concurrently": "^3.5.0"
   },
   "engines": {
     "node": "8.11.4"
