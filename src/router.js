@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Invoice from "./components/invoice/Invoice.vue";
 import invoices from "./components/invoices/invoices.vue";
 import LoginForm from "./components/login/LoginForm.vue";
+import Settings from "./containers/settings.vue";
 
 import { getStore } from "./configureStore";
 
@@ -14,7 +15,8 @@ const router = new Router({
       { path: "", component: Invoice, name: "home" },
       { path: "/invoice", component: Invoice, name: "invoice" },
       { path: "/invoices", component: invoices, name: "invoices" },
-      { path: "/login", component: LoginForm, name: "login" }
+      { path: "/login", component: LoginForm, name: "login" },
+      { path: "/settings", component: Settings, name: "settings" }
   ]
 });
 const store = getStore();

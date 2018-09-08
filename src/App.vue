@@ -11,28 +11,28 @@
           <div id="navigate" class="layout-sidebar" v-if="loggedIn">
 
             <div class="layout-sidebar__item">
-              <router-link class="layout-sidebar__item__link" to="/invoice">Fakturera</router-link>
-              <!--
               <v-menu offset-y>
-                <v-btn
+                <a
+                        class="layout-sidebar__item__link"
                         slot="activator"
                         color="primary"
                         dark
+                        style="max-height: 20px"
                 >
-                  Fakturera
-                </v-btn>
+                  Invoicer
+                </a>
                 <v-list>
                   <v-list-tile
-                          @click=""
+                          @click="goto('invoice')"
                   >
                     <v-list-tile-title>Skapa faktura</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="">
+                  <v-list-tile @click="goto('settings')">
                     <v-list-tile-title>Inställningar</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
               </v-menu>
-              -->
+
             </div>
             <div class="layout-sidebar__item">
               <router-link class="layout-sidebar__item__link" to="/invoices">Mina fakturor</router-link>
@@ -65,6 +65,9 @@
                     type: "LOGOUT"
                 });
                 this.$router.push("login");
+            },
+            goto(route) {
+                this.$router.push(route);
             }
         }
     };
