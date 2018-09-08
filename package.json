@@ -1,12 +1,13 @@
 {
   "name": "invoicer",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && tsc",
     "api": "./node_modules/nodemon/bin/nodemon.js",
-    "startApi": "ts-node src/api/index_dev.ts"
+    "startApi": "ts-node src/api/index_dev.ts",
+    "postinstall": "yarn build"
   },
   "dependencies": {
     "@types/node": "^8.0.53",
@@ -40,18 +41,18 @@
     "typescript": "^2.6.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.0.19"
-  },
-  "devDependencies": {
+    "vuetify": "^1.0.19",
     "@babel/polyfill": "^7.0.0-beta.49",
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.12.1",
-    "sass-loader": "^7.0.1",
-    "ts-node": "7.0.1",
     "vue-cli-plugin-vuetify": "^0.1.6",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "sass-loader": "^7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1",
+    "ts-node": "7.0.1"
   },
   "engines": {
     "node": "8.11.4"

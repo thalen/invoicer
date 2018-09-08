@@ -47,7 +47,7 @@
         <div v-if="showPdf" class="invoice__notification">
             Fakturan är laddad
             <a target="_blank" style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
-            <button style="margin-top:10px" v-on:click="doSave">Spara</button>
+            <v-btn styke="margin-top:10px" v-on:click="doSave" color="info">Spara</v-btn>
         </div>
     </div>
 </template>

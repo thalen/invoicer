@@ -37,6 +37,10 @@ export default function() {
         directory: `${__dirname}../../../dist`
     }));
 
+    server.get(/\/assets\/(.*)?.*/, plugins.serveStatic({
+        directory: `${__dirname}../../../dist`
+    }));
+
     function verifyAuthentication(req, res, next) {
         // check header or url parameters or post parameters for token
         let token = (req.body ? req.body.token : undefined) || req.query.token || req.headers['authorization'];
