@@ -5,4 +5,10 @@
     margin: 0 0 .75em;
     padding: 1.5em;
   }
+
+  &__required {
+    margin-left: 3px;
+    padding-bottom: 5px;
+    font-size: 11px;
+  }
 }
