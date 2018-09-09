@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux'
-import router from './router'
-import invoice from './invoice';
+import { combineReducers } from "redux";
+import router from "./router";
+import invoice from "./invoice";
 
 const rootReducer = combineReducers({
-    router,
-    invoice
+  router,
+  invoice
 });
 
-export default rootReducer
+export default rootReducer;

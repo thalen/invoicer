@@ -2,6 +2,18 @@
 
 ## unreleased
 
+### Changed
+- using vue-cli
+- updated build script, dev server
+
+### Added
+- vuetify
+- vue-cli
+- starting api with ts-node
+- Added form for register new customers
+- Added navigation for new routes
+- Menu now have a dropdown
+
 ## 1.2.0 - 2018-02-17
 
 ### Changed

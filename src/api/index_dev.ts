@@ -6,4 +6,3 @@ if (result.error) {
 console.log(result.parsed);
 const App = require('./App');
 App.default();
-

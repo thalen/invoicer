@@ -47,59 +47,59 @@
         <div v-if="showPdf" class="invoice__notification">
             Fakturan är laddad
             <a target="_blank" style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
-            <button style="margin-top:10px" v-on:click="doSave">Spara</button>
+            <v-btn style="margin-top:10px" v-on:click="doSave" color="info">Spara</v-btn>
         </div>
     </div>
 </template>
 
 <script>
-    import './invoice.scss';
-    import {getStore} from '../../configureStore';
-    let store = getStore();
-    export default {
-        name: 'invoice',
-        data () {
-            return {
-                form: {
-                    invoiceMonth: ''
-                },
-                showPdf: this.$select('invoice.showPdf as showPdf'),
-                pdfLink: this.$select('invoice.pdfLink as pdfLink'),
-                ocr: this.$select('invoice.ocr as ocr')
-            }
-        },
-        methods: {
-            doPreview(event) {
-                event.preventDefault();
-                if (this.pdfLink !== void 0 && this.pdfLink !== null) {
-                    let arr = this.pdfLink.split('/');
-                    store.dispatch({
-                        type: 'REMOVE_LINK',
-                        asset: arr[arr.length-1]
-                    });
-                }
-                store.dispatch({
-                    type: 'PREVIEW_INIT',
-                    model: {
-                        hours: this.form.hours,
-                        price: this.form.price,
-                        dueDate: this.form.dueDate,
-                        invoiceMonth: this.form.invoiceMonth
-                    }
-                });
-                this.form = {
-                    invoiceMonth: ''
-                };
-            },
-            doSave(event) {
-                event.preventDefault();
-                let arr = this.pdfLink.split('/');
-                store.dispatch({
-                    type: 'SAVE_INVOICE',
-                    pdf: arr[arr.length-1],
-                    ocr: this.ocr
-                });
-            }
+import "./invoice.scss";
+import { getStore } from "../../configureStore";
+let store = getStore();
+export default {
+  name: "invoice",
+  data() {
+    return {
+      form: {
+        invoiceMonth: ""
+      },
+      showPdf: this.$select("invoice.showPdf as showPdf"),
+      pdfLink: this.$select("invoice.pdfLink as pdfLink"),
+      ocr: this.$select("invoice.ocr as ocr")
+    };
+  },
+  methods: {
+    doPreview(event) {
+      event.preventDefault();
+      if (this.pdfLink !== void 0 && this.pdfLink !== null) {
+        let arr = this.pdfLink.split("/");
+        store.dispatch({
+          type: "REMOVE_LINK",
+          asset: arr[arr.length - 1]
+        });
+      }
+      store.dispatch({
+        type: "PREVIEW_INIT",
+        model: {
+          hours: this.form.hours,
+          price: this.form.price,
+          dueDate: this.form.dueDate,
+          invoiceMonth: this.form.invoiceMonth
         }
+      });
+      this.form = {
+        invoiceMonth: ""
+      };
+    },
+    doSave(event) {
+      event.preventDefault();
+      let arr = this.pdfLink.split("/");
+      store.dispatch({
+        type: "SAVE_INVOICE",
+        pdf: arr[arr.length - 1],
+        ocr: this.ocr
+      });
     }
+  }
+};
 </script>
