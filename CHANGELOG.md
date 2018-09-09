@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## 2.0.0 - 2018-09-09
+
 ### Changed
 - using vue-cli
 - updated build script, dev server
