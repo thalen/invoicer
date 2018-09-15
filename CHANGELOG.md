@@ -1,4 +1,4 @@
-# Invoice hr-system
+# InvoiceInfo hr-system
 
 ## unreleased
 

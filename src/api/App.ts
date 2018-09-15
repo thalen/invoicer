@@ -1,12 +1,14 @@
 import * as restify from 'restify';
-import * as plugins from 'restify/lib/plugins';
+import * as restifyPlugins from 'restify-plugins';
 import * as logger from 'morgan';
 import {Server} from 'restify';
 import DeletePdfService from "./services/DeletePdfService";
 import {callbackWith} from "./services/RestService";
 import {getInvoices, previewInvoice, uploadInvoice} from "./services/InvoicesService";
+import { createCustomer } from './services/customer/CustomerService';
 import authenticateService from './services/authenticate/AuthenticateService';
 import * as jwt from 'jsonwebtoken';
+import connect from './db/connect';
 
 export default function() {
     const port = process.env.PORT || 5000;
@@ -14,30 +16,33 @@ export default function() {
 
     let server:Server = restify.createServer();
 
+    //middleware
     server.use(logger('dev'));
-    server.use(plugins.queryParser({
+    server.use(restifyPlugins.jsonBodyParser({ mapParams: true }));
+    server.use(restifyPlugins.acceptParser(server.acceptable));
+    server.use(restifyPlugins.queryParser({ mapParams: true }));
+    server.use(restifyPlugins.urlEncodedBodyParser({
         mapParams: true
     }));
-    server.use(plugins.urlEncodedBodyParser({
-        mapParams: true
-    }));
+    server.use(restifyPlugins.fullResponse());
 
     server.post('/authenticate', callbackWith(authenticateService));
 
-    server.get('/', plugins.serveStatic({
+    server.get('/', restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`,
         file: 'index.html'
     }));
 
-    server.get(/\/css\/(.*)?.*/, plugins.serveStatic({
+
+    server.get(/\/css\/(.*)?.*/, restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 
-    server.get(/\/js\/(.*)?.*/, plugins.serveStatic({
+    server.get(/\/js\/(.*)?.*/, restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 
-    server.get(/\/assets\/(.*)?.*/, plugins.serveStatic({
+    server.get(/\/assets\/(.*)?.*/, restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 
@@ -84,7 +89,7 @@ export default function() {
 
     server.post(`${api}/pdf/preview`, verifyAuthentication, callbackWith(previewInvoice));
 
-    server.listen(port, () => {
-        console.log('%s listening at %s', server.name, server.url);
-    });
+    server.post(`${api}/customer`, callbackWith(createCustomer));
+
+    connect(server, port);
 };

@@ -70,6 +70,7 @@ async function getToken(userId: string, pwd: string) {
 
 const authenticate : RestService = {
     execute: (req: Request, res: Response) => {
+        console.log(`user_id: ${req.body.user_id}`);
         getToken(req.body.user_id, req.body.password).then((result) => {
             if (result === null) {
                 res.send(401);
