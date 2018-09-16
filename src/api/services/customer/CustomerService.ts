@@ -5,12 +5,12 @@ import Customer from '../../db/schemas/Customer';
 const createCustomer : RestService = {
     execute: async (req: Request, res: Response) => {
         try {
-            const { specification, price, ...rest } = req.body;
+            const { invoiceSpecification, invoiceRate, ...rest } = req.body;
             const data = {
                 ...rest,
                 invoiceSpecs: [{
-                    specification,
-                    price
+                    specification: invoiceSpecification,
+                    price: invoiceRate
                 }]
             };
 

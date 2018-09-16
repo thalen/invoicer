@@ -7,7 +7,7 @@
                     <span>Företagsnamn</span>
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
-                <input v-model="form.customerName" type="text" id="name">
+                <input v-model="form.name" type="text" id="name">
             </p>
 
             <p>
@@ -16,8 +16,8 @@
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
 
-                <input v-model="form.customerAdress" type="text" id="address" placeholder="Gatuadress">
-                <input v-model="form.customerZip" type="text" id="zip" placeholder="Postadress">
+                <input v-model="form.address" type="text" id="address" placeholder="Gatuadress">
+                <input v-model="form.zipCode" type="text" id="zip" placeholder="Postadress">
                 <input v-model="form.country" type="text" id="country" placeholder="Land">
             </p>
 
@@ -33,14 +33,14 @@
                     <span>Moms regnr</span>
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
-                <input v-model="form.vat" type="text" id="vat_id">
+                <input v-model="form.vatId" type="text" id="vat_id">
             </p>
             <p>
                 <label for="contact">
                     <span>Kontaktperson</span>
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
-                <input v-model="form.contactPerson" type="text" id="contact">
+                <input v-model="form.contact" type="text" id="contact">
             </p>
             <p>
                 <label>
@@ -77,24 +77,44 @@
                 <input v-model="form.invoiceRate" type="text" placeholder="Timpris">
             </p>
             <v-btn style="margin-top:10px" type="submit" v-on:click="addCustomer" color="info">Lägg till</v-btn>
+            <span v-if="createStatus === 'FAILED'" class="customer__error">Inloggningen misslyckades</span>
+            <span v-if="createStatus === 'CREATED'" class="customer__success">Kunden skapad</span>
         </form>
     </fieldset>
 </template>
 <script>
     import "./customerForm.scss";
+    import { getStore } from "../../configureStore";
+    const store = getStore();
     export default {
         name: "customerForm",
         data() {
             return {
                 form: {
                     vatEnabled: 'false'
-                }
+                },
+                createStatus: this.$select("customer.status as createStatus"),
             };
         },
         methods: {
             addCustomer(event) {
                 event.preventDefault();
-                console.log(this.form);
+                store.dispatch({
+                    type: "CREATE_CUSTOMER",
+                    form: {
+                        ...this.form,
+                        user_id: 'thalen'
+                    }
+                });
+            }
+        },
+        watch: {
+            createStatus(newVal) {
+                if (newVal === 'CREATED') {
+                    this.form = {
+                        vatEnabled: false
+                    }
+                }
             }
         }
     };

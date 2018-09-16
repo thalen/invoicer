@@ -11,4 +11,20 @@
     padding-bottom: 5px;
     font-size: 11px;
   }
+
+  &__error {
+    margin-top: 25px;
+    border: 3px solid #f59999;
+    background-color: white;
+    display: block;
+    padding: 10px 10px;
+  }
+
+  &__success {
+    margin-top: 25px;
+    border: 3px solid #52f577;
+    background-color: white;
+    display: block;
+    padding: 10px 10px;
+  }
 }

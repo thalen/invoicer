@@ -16,23 +16,20 @@ const config = new AWS.Config({
 const BUCKET = 'thalen.invoices.bucket';
 
 const getInvoices : RestService = {
-    execute: (req: Request, res: Response) => {
+    execute: async (req: Request, res: Response) => {
         let s3 = new AWS.S3(config);
-        /*let params = {
+        let params = {
             Bucket: BUCKET
         };
         s3.listObjects(params, (err, data) => {
             if (err) throw err;
             res.json(data.Contents);
-        });*/
-        var x = {};
-        throw new Error('fel fel');
-        res.json(x);
+        });
     }
 };
 
 const uploadInvoice : RestService = {
-    execute: (req: Request, res: Response) => {
+    execute: async (req: Request, res: Response) => {
         const filepath = `./dist/assets/invoices/${req.params.link}`;
         const ocr = req.body.ocr;
         let awaitUpload = new Promise((resolve, reject) => {
@@ -79,7 +76,7 @@ const uploadInvoice : RestService = {
 };
 
 const previewInvoice : RestService = {
-    execute: (req: Request, res: Response) => {
+    execute: async (req: Request, res: Response) => {
         let service: AwsService = getAwsService(new AWS.S3(config), BUCKET);
         service.getNextInvoiceNumber().then((nextValue) => {
             invoiceRenderer.createPdf({

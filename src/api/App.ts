@@ -89,7 +89,7 @@ export default function() {
 
     server.post(`${api}/pdf/preview`, verifyAuthentication, callbackWith(previewInvoice));
 
-    server.post(`${api}/customer`, callbackWith(createCustomer));
+    server.post(`${api}/customer`, verifyAuthentication, callbackWith(createCustomer));
 
     connect(server, port);
 };

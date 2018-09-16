@@ -3,7 +3,7 @@ import {Request, Response} from "restify";
 import * as fs from "fs";
 
 const DeletePdfService : RestService = {
-    execute: (req: Request, res: Response) => {
+    execute: async (req: Request, res: Response) => {
         let filepath = `./dist/assets/invoices/${req.params.link}`;
         fs.unlink(filepath, (err) => {
             if (err) {
