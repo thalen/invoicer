@@ -5,15 +5,18 @@
             <p>Fyll i fakturauppgifterna nedan för att skapa din faktura</p>
 
             <form>
+                <p>
+                    <label for="customer">Kund</label>
+                    <select id="customer" v-model="form.customer">
+                        <option v-for="customer in customers" v-bind:value="customer.id">
+                            {{customer.name}}
+                        </option>
+                    </select>
 
+                </p>
                 <p>
                     <label for="hours">Antal timmar</label>
                     <input v-model="form.hours" type="text" id="hours">
-                </p>
-
-                <p>
-                    <label for="price">Timpris</label>
-                    <input v-model="form.price" type="text" id="price">
                 </p>
 
                 <p>
@@ -53,53 +56,55 @@
 </template>
 
 <script>
-import "./invoice.scss";
-import { getStore } from "../../configureStore";
-let store = getStore();
-export default {
-  name: "invoice",
-  data() {
-    return {
-      form: {
-        invoiceMonth: ""
-      },
-      showPdf: this.$select("invoice.showPdf as showPdf"),
-      pdfLink: this.$select("invoice.pdfLink as pdfLink"),
-      ocr: this.$select("invoice.ocr as ocr")
-    };
-  },
-  methods: {
-    doPreview(event) {
-      event.preventDefault();
-      if (this.pdfLink !== void 0 && this.pdfLink !== null) {
-        let arr = this.pdfLink.split("/");
-        store.dispatch({
-          type: "REMOVE_LINK",
-          asset: arr[arr.length - 1]
-        });
-      }
-      store.dispatch({
-        type: "PREVIEW_INIT",
-        model: {
-          hours: this.form.hours,
-          price: this.form.price,
-          dueDate: this.form.dueDate,
-          invoiceMonth: this.form.invoiceMonth
+    import "./invoice.scss";
+    import {getStore} from "../../configureStore";
+
+    let store = getStore();
+    export default {
+        name: "invoice",
+        data() {
+            return {
+                form: {
+                    invoiceMonth: ""
+                },
+                showPdf: this.$select("invoice.showPdf as showPdf"),
+                pdfLink: this.$select("invoice.pdfLink as pdfLink"),
+                ocr: this.$select("invoice.ocr as ocr"),
+                customers: this.$select("customer.customers as customers")
+            };
+        },
+        methods: {
+            doPreview(event) {
+                event.preventDefault();
+                if (this.pdfLink !== void 0 && this.pdfLink !== null) {
+                    let arr = this.pdfLink.split("/");
+                    store.dispatch({
+                        type: "REMOVE_LINK",
+                        asset: arr[arr.length - 1]
+                    });
+                }
+                store.dispatch({
+                    type: "PREVIEW_INIT",
+                    model: {
+                        customer: this.form.customer,
+                        hours: this.form.hours,
+                        dueDate: this.form.dueDate,
+                        invoiceMonth: this.form.invoiceMonth
+                    }
+                });
+                this.form = {
+                    invoiceMonth: ""
+                };
+            },
+            doSave(event) {
+                event.preventDefault();
+                let arr = this.pdfLink.split("/");
+                store.dispatch({
+                    type: "SAVE_INVOICE",
+                    pdf: arr[arr.length - 1],
+                    ocr: this.ocr
+                });
+            }
         }
-      });
-      this.form = {
-        invoiceMonth: ""
-      };
-    },
-    doSave(event) {
-      event.preventDefault();
-      let arr = this.pdfLink.split("/");
-      store.dispatch({
-        type: "SAVE_INVOICE",
-        pdf: arr[arr.length - 1],
-        ocr: this.ocr
-      });
-    }
-  }
-};
+    };
 </script>

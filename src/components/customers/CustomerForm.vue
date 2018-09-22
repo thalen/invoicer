@@ -102,8 +102,7 @@
                 store.dispatch({
                     type: "CREATE_CUSTOMER",
                     form: {
-                        ...this.form,
-                        user_id: 'thalen'
+                        ...this.form
                     }
                 });
             }

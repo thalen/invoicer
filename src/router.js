@@ -8,18 +8,28 @@ import Settings from "./containers/settings.vue";
 
 import { getStore } from "./configureStore";
 
-Vue.use(Router)
+Vue.use(Router);
+
+const store = getStore();
+
+const beforeEnter = (to, from, next) => {
+    store.dispatch({
+        type: 'LIST_CUSTOMERS',
+        user: store.state.router.user
+    });
+    next();
+};
 
 const router = new Router({
   routes: [
       { path: "", component: Invoice, name: "home" },
-      { path: "/invoice", component: Invoice, name: "invoice" },
+      { path: "/invoice", component: Invoice, name: "invoice" , beforeEnter},
       { path: "/invoices", component: invoices, name: "invoices" },
       { path: "/login", component: LoginForm, name: "login" },
       { path: "/settings", component: Settings, name: "settings" }
   ]
 });
-const store = getStore();
+
 router.beforeEach((to, from, next) => {
     if (!store.state.router.loggedIn && to.name !== "login") {
         next("/login");

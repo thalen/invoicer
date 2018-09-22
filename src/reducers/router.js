@@ -1,5 +1,10 @@
 export default function(state = { loggedIn: false }, action) {
   switch (action.type) {
+    case "AUTHENTICATE":
+      return {
+          ...state,
+          user: action.user
+      };
     case "AUTHENTICATED":
       return {
         ...state,

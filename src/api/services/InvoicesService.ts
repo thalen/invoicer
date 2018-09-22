@@ -4,6 +4,7 @@ import * as AWS from 'aws-sdk';
 import * as fs from "fs";
 import {AwsService, getAwsService} from "./aws/AwsService";
 import {invoiceRenderer} from "./invoice/InvoiceRenderer";
+import Customer from '../db/schemas/Customer';
 
 const config = new AWS.Config({
     credentials: {
@@ -77,11 +78,12 @@ const uploadInvoice : RestService = {
 
 const previewInvoice : RestService = {
     execute: async (req: Request, res: Response) => {
+        const customer = await Customer.findById(req.params.customerId).exec();
         let service: AwsService = getAwsService(new AWS.S3(config), BUCKET);
         service.getNextInvoiceNumber().then((nextValue) => {
             invoiceRenderer.createPdf({
                 hours: req.body.hours,
-                price: req.body.price,
+                price: customer['invoiceSpecs'][0].price,
                 dueDate: req.body.dueDate,
                 invoiceMonth: req.body.invoiceMonth
             }, nextValue)

@@ -26,10 +26,9 @@ const previewEpic = action$ =>
             return Observable.ajax(
                 authenticationProvider({
                     method: "POST",
-                    url: "/api/pdf/preview",
+                    url: `/api/customer/${action.model.customer}/invoice/preview`,
                     body: {
                         hours: action.model.hours,
-                        price: action.model.price,
                         dueDate: action.model.dueDate,
                         invoiceMonth: action.model.invoiceMonth
                     }
@@ -128,6 +127,25 @@ const createCustomer = action$ =>
                 );
         });
 
+const getCustomersDone = payload => ({type: "LIST_CUSTOMERS_DONE", payload});
+const getCustomers = action$ =>
+    action$
+        .ofType("LIST_CUSTOMERS")
+        .debounceTime(500)
+        .mergeMap(action => {
+            return Observable.ajax(
+                authenticationProvider({
+                    method: "GET",
+                    url: `/api/customers?user_id=${action.user}`
+                })
+            ).map(getCustomersDone)
+                .catch(error =>
+                    Observable.of({
+                        type: "LIST_CUSTOMERS_FAILED",
+                        payload: error.xhr.response
+                    })
+                );
+        });
 
 const epicMiddleware = createEpicMiddleware(
     combineEpics(
@@ -136,7 +154,8 @@ const epicMiddleware = createEpicMiddleware(
         saveInvoice,
         loadInvoices,
         authenticate,
-        createCustomer
+        createCustomer,
+        getCustomers
     )
 );
 

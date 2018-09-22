@@ -5,7 +5,7 @@ import {Server} from 'restify';
 import DeletePdfService from "./services/DeletePdfService";
 import {callbackWith} from "./services/RestService";
 import {getInvoices, previewInvoice, uploadInvoice} from "./services/InvoicesService";
-import { createCustomer } from './services/customer/CustomerService';
+import { createCustomer, getCustomers } from './services/customer/CustomerService';
 import authenticateService from './services/authenticate/AuthenticateService';
 import * as jwt from 'jsonwebtoken';
 import connect from './db/connect';
@@ -87,9 +87,11 @@ export default function() {
 
     server.post(`${api}/pdf/create/:link`, verifyAuthentication, callbackWith(uploadInvoice));
 
-    server.post(`${api}/pdf/preview`, verifyAuthentication, callbackWith(previewInvoice));
-
     server.post(`${api}/customer`, verifyAuthentication, callbackWith(createCustomer));
+
+    server.post(`${api}/customer/:customerId/invoice/preview`, verifyAuthentication, callbackWith(previewInvoice));
+
+    server.get(`${api}/customers`, verifyAuthentication, callbackWith(getCustomers));
 
     connect(server, port);
 };

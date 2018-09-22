@@ -15,6 +15,17 @@ export default function(state = { status: 'INIT' }, action) {
                 ...state,
                 status: 'FAILED'
             };
+        case "LIST_CUSTOMERS_DONE":
+            return {
+                ...state,
+                customers: [
+                    {name: 'Välj kund...'},
+                    ...action.payload.response.map(customer => ({
+                        id: customer._id,
+                        name: customer.name
+                    }))
+                ]
+            };
         default:
             return state;
     }
