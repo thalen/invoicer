@@ -18,6 +18,7 @@
 
                 <input v-model="form.address" type="text" id="address" placeholder="Gatuadress">
                 <input v-model="form.zipCode" type="text" id="zip" placeholder="Postadress">
+                <input v-model="form.city" type="text" id="city" placeholder="Stad">
                 <input v-model="form.country" type="text" id="country" placeholder="Land">
             </p>
 

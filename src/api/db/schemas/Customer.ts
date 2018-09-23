@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import * as mongooseStringQuery from 'mongoose-string-query';
 import * as timestamps from 'mongoose-timestamp';
-import { InvoiceInfoSchema } from './InvoiceInfo';
+import { InvoiceInfoSchema, InvoiceInfo } from './InvoiceInfo';
 
 const CustomerSchema = new mongoose.Schema(
     {
@@ -21,6 +21,10 @@ const CustomerSchema = new mongoose.Schema(
         },
         zipCode: {
             type: Number,
+            required: true
+        },
+        city: {
+            type: String,
             required: true
         },
         country: {
@@ -51,9 +55,24 @@ const CustomerSchema = new mongoose.Schema(
     { minimize: false }
 );
 
+interface ICustomer extends mongoose.Document {
+    user_id: String,
+    name: String,
+    address: String,
+    zipCode: Number,
+    city: String,
+    country: String,
+    orgNr: String,
+    vatId: String,
+    contact: String,
+    invoiceSpecs: InvoiceInfo
+};
+
+export { ICustomer }
+
 CustomerSchema.plugin(timestamps);
 CustomerSchema.plugin(mongooseStringQuery);
 
-const Customer = mongoose.model('Customer', CustomerSchema);
+const Customer = mongoose.model<ICustomer>('Customer', CustomerSchema);
 
 export default Customer;

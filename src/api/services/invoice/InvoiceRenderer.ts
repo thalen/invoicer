@@ -4,6 +4,8 @@ import * as handlebars from 'express-handlebars';
 import * as moment from 'moment';
 import * as pdf from 'html-pdf';
 import * as numeral from 'numeral';
+import { ICustomer } from "../../db/schemas/Customer";
+import {contextBuilder, withCustomer, withInputParams, withOcr} from "../builders/ContextBuilder";
 
 const hbs = handlebars.create();
 
@@ -31,22 +33,13 @@ const toPdf = (html, options) => {
 
 
 const invoiceRenderer = {
-    createPdf : async (inputParams: InvoiceRequest, ocr: number) => {
+    createPdf : async (inputParams: InvoiceRequest, customer: ICustomer, ocr: number) => {
 
         try {
-            let hours = numeral(inputParams.hours);
-            let price = numeral(inputParams.price);
-            let amount = (hours.value() * price.value()).toString() + ',00';
-
-            let context = {
-                ocr: ocr,
-                hours: hours.value(),
-                price: price.value(),
-                amount: amount,
-                invoiceDate: moment().format('YYYY-MM-DD'),
-                dueDate: inputParams.dueDate,
-                invoiceMonth: inputParams.invoiceMonth
-            };
+            const ocrBuilder = withOcr(ocr);
+            const paramsBuilder = withInputParams(inputParams, customer.invoiceSpecs[0].price);
+            const customerBuilder = withCustomer(customer);
+            const context = contextBuilder(ocrBuilder, paramsBuilder, customerBuilder);
 
             const template = await loadTemplate();
             let html = template(context);

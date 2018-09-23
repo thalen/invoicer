@@ -18,12 +18,18 @@ const InvoiceInfoSchema = new mongoose.Schema(
     { minimize: false }
 );
 
-
 InvoiceInfoSchema.plugin(timestamps);
 InvoiceInfoSchema.plugin(mongooseStringQuery);
 
 export { InvoiceInfoSchema };
 
-const InvoiceInfo = mongoose.model('InvoiceInfo', InvoiceInfoSchema);
+interface InvoiceInfo extends mongoose.Document {
+    specification: String,
+    price: Number
+}
 
-export default InvoiceInfo;
+export { InvoiceInfo }
+
+//const InvoiceInfo = mongoose.model<InvoiceInfo>('InvoiceInfo', InvoiceInfoSchema);
+
+//export default InvoiceInfo;

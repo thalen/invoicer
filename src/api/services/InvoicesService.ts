@@ -83,10 +83,9 @@ const previewInvoice : RestService = {
         service.getNextInvoiceNumber().then((nextValue) => {
             invoiceRenderer.createPdf({
                 hours: req.body.hours,
-                price: customer['invoiceSpecs'][0].price,
                 dueDate: req.body.dueDate,
                 invoiceMonth: req.body.invoiceMonth
-            }, nextValue)
+            }, customer, nextValue)
                 .then(result => res.json(result))
                 .catch(error => res.json(error))
         });
