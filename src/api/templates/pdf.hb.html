@@ -139,7 +139,9 @@
         <span style="margin-left:1mm">Telefon: 073-670 21 20</span>
         <br>
         <span style="margin-left:1mm">E-post: olle@thalen-solutions.com</span>
-        <div class="address" style="float:right;margin-top:55px">
+        <div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
+        <h3 style="text-transform:uppercase">Faktura</h3>
+        <div class="address" style="position:fixed;top:45mm;left:129mm">
           <span>
             {{customer.name}}
           </span>
@@ -151,13 +153,11 @@
           </span>
 
             {{#if customer.country}}
-                <span style="text-transform:uppercase">
+            <span style="text-transform:uppercase">
                     {{customer.country}}
                 </span>
             {{/if}}
         </div>
-        <div style="width:700px;margin-top:15px;border-bottom: 1px solid #b5b5b5;"></div>
-        <h3 style="text-transform:uppercase">Faktura</h3>
         <table style="margin-top:10mm">
             <tr>
                 <td>Fakturadatum:</td>
