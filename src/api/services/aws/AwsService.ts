@@ -6,6 +6,9 @@ export interface AwsService {
 
     getObject(params: S3.Types.GetObjectRequest): Promise<S3.Types.GetObjectOutput>;
 
+    /**
+     * @deprecated
+     */
     getNextInvoiceNumber(): Promise<number>;
 }
 

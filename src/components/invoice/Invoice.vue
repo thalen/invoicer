@@ -7,7 +7,7 @@
             <form>
                 <p>
                     <label for="customer">Kund</label>
-                    <select id="customer" v-model="form.customer">
+                    <select id="customer" v-model="selectedCustomer">
                         <option v-for="customer in customers" v-bind:value="customer.id">
                             {{customer.name}}
                         </option>
@@ -70,7 +70,8 @@
                 showPdf: this.$select("invoice.showPdf as showPdf"),
                 pdfLink: this.$select("invoice.pdfLink as pdfLink"),
                 ocr: this.$select("invoice.ocr as ocr"),
-                customers: this.$select("customer.customers as customers")
+                customers: this.$select("customer.customers as customers"),
+                selectedCustomer: undefined
             };
         },
         methods: {
@@ -86,7 +87,7 @@
                 store.dispatch({
                     type: "PREVIEW_INIT",
                     model: {
-                        customer: this.form.customer,
+                        customer: this.selectedCustomer,
                         hours: this.form.hours,
                         dueDate: this.form.dueDate,
                         invoiceMonth: this.form.invoiceMonth
@@ -95,6 +96,7 @@
                 this.form = {
                     invoiceMonth: ""
                 };
+                this.selectedCustomer = undefined;
             },
             doSave(event) {
                 event.preventDefault();
@@ -102,8 +104,21 @@
                 store.dispatch({
                     type: "SAVE_INVOICE",
                     pdf: arr[arr.length - 1],
-                    ocr: this.ocr
+                    ocr: this.ocr,
+                    customerId: store.state.customer.selectedCustomer
                 });
+            }
+        },
+        watch: {
+            selectedCustomer(newVal) {
+                if (newVal) {
+                    store.dispatch({
+                        type: "CUSTOMER_SELECTED",
+                        payload: {
+                            id: newVal
+                        }
+                    });
+                }
             }
         }
     };

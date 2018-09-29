@@ -59,7 +59,7 @@ const saveInvoice = action$ =>
             return Observable.ajax(
                 authenticationProvider({
                     method: "POST",
-                    url: `/api/pdf/create/${action.pdf}`,
+                    url: `/api/pdf/create/${action.pdf}?customerId=${action.customerId}`,
                     body: {
                         ocr: action.ocr
                     }

@@ -2,9 +2,9 @@ import {RestService} from "./RestService";
 import {Request, Response} from "restify";
 import * as AWS from 'aws-sdk';
 import * as fs from "fs";
-import {AwsService, getAwsService} from "./aws/AwsService";
 import {invoiceRenderer} from "./invoice/InvoiceRenderer";
 import Customer from '../db/schemas/Customer';
+import Invoice from '../db/schemas/Invoice';
 
 const config = new AWS.Config({
     credentials: {
@@ -33,6 +33,8 @@ const uploadInvoice : RestService = {
     execute: async (req: Request, res: Response) => {
         const filepath = `./dist/assets/invoices/${req.params.link}`;
         const ocr = req.body.ocr;
+        console.log(req.params.customerId);
+        const invoiceMeta = await Invoice.findOne({ customerId: req.params.customerId }).exec();
         let awaitUpload = new Promise((resolve, reject) => {
             fs.readFile(filepath, (err, data) => {
                 if (err) {
@@ -49,13 +51,25 @@ const uploadInvoice : RestService = {
                         'OCR': ocr
                     }
                 };
+
                 s3.upload(params, (err, data) => {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(data);
+                        Invoice.update(
+                            { customerId: req.params.customerId},
+                            { $inc: { invoices: 1 }},
+                            {},
+                            (err) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(data);
+                                }
+                            });
                     }
                 });
+
             });
         });
         const removeFile = () => {
@@ -79,16 +93,14 @@ const uploadInvoice : RestService = {
 const previewInvoice : RestService = {
     execute: async (req: Request, res: Response) => {
         const customer = await Customer.findById(req.params.customerId).exec();
-        let service: AwsService = getAwsService(new AWS.S3(config), BUCKET);
-        service.getNextInvoiceNumber().then((nextValue) => {
-            invoiceRenderer.createPdf({
-                hours: req.body.hours,
-                dueDate: req.body.dueDate,
-                invoiceMonth: req.body.invoiceMonth
-            }, customer, nextValue)
-                .then(result => res.json(result))
-                .catch(error => res.json(error))
-        });
+        const invoiceMeta = await Invoice.findOne({customerId: req.params.customerId}).exec();
+        invoiceRenderer.createPdf({
+            hours: req.body.hours,
+            dueDate: req.body.dueDate,
+            invoiceMonth: req.body.invoiceMonth
+        }, customer, invoiceMeta.invoices.valueOf() + 1)
+            .then(result => res.json(result))
+            .catch(error => res.json(error));
     }
 };
 

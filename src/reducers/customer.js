@@ -26,6 +26,11 @@ export default function(state = { status: 'INIT' }, action) {
                     }))
                 ]
             };
+        case "CUSTOMER_SELECTED":
+            return {
+                ...state,
+                selectedCustomer: action.payload.id
+            };
         default:
             return state;
     }
