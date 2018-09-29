@@ -26,6 +26,7 @@ const withCustomer = (customer: ICustomer) => context => ({
     ...context,
     price: customer.invoiceSpecs[0].price,
     customer: {
+        publicId: customer.publicId,
         name: customer.name,
         address: customer.address,
         zipCode: customer.zipCode,

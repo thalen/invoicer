@@ -9,6 +9,10 @@ const CustomerSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        publicId: {
+            type: Number,
+            required: true
+        },
         name: {
             type: String,
             required: true,
@@ -20,7 +24,7 @@ const CustomerSchema = new mongoose.Schema(
             trim: true
         },
         zipCode: {
-            type: Number,
+            type: String,
             required: true
         },
         city: {
@@ -57,9 +61,10 @@ const CustomerSchema = new mongoose.Schema(
 
 interface ICustomer extends mongoose.Document {
     user_id: String,
+    publicId: Number,
     name: String,
     address: String,
-    zipCode: Number,
+    zipCode: String,
     city: String,
     country: String,
     orgNr: String,

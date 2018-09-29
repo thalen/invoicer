@@ -3,6 +3,13 @@
 
         <form>
             <p>
+                <label for="publicId">
+                    <span>Löpnummer</span>
+                    <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
+                </label>
+                <input v-model="form.publicId" type="number" id="publicId">
+            </p>
+            <p>
                 <label for="name">
                     <span>Företagsnamn</span>
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
@@ -78,7 +85,7 @@
                 <input v-model="form.invoiceRate" type="text" placeholder="Timpris">
             </p>
             <v-btn style="margin-top:10px" type="submit" v-on:click="addCustomer" color="info">Lägg till</v-btn>
-            <span v-if="createStatus === 'FAILED'" class="customer__error">Inloggningen misslyckades</span>
+            <span v-if="createStatus === 'FAILED'" class="customer__error">Kunden kunde ej skapas</span>
             <span v-if="createStatus === 'CREATED'" class="customer__success">Kunden skapad</span>
         </form>
     </fieldset>
