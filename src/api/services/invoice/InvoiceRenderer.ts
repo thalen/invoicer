@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as pdf from 'html-pdf';
 import * as numeral from 'numeral';
 import { ICustomer } from "../../db/schemas/Customer";
-import {contextBuilder, withCustomer, withInputParams, withOcr} from "../builders/ContextBuilder";
+import {contextBuilder, withCustomer, withInputParams, withOcr, withVat} from "../builders/ContextBuilder";
 
 const hbs = handlebars.create();
 
@@ -40,9 +40,15 @@ const invoiceRenderer = {
             const paramsBuilder = withInputParams(inputParams, customer.invoiceSpecs[0].price);
             const customerBuilder = withCustomer(customer);
             const context = contextBuilder(ocrBuilder, paramsBuilder, customerBuilder);
-
+            let vatInfo = {};
+            if (context.customer.isVat) {
+                vatInfo = withVat(inputParams, customer.invoiceSpecs[0].price, customer.vatRate);
+            }
             const template = await loadTemplate();
-            let html = template(context);
+            let html = template({
+                ...context,
+                ...vatInfo
+            });
             let options = {
                 "format": "A4"
             };
@@ -55,6 +61,7 @@ const invoiceRenderer = {
             };
 
         } catch (e) {
+            console.log(e);
             return Promise.reject({
                 success: false
             });

@@ -66,12 +66,13 @@ interface ICustomer extends mongoose.Document {
     address: String,
     zipCode: String,
     city: String,
-    country: String,
+    country?: String,
     orgNr: String,
     vatId: String,
     contact: String,
-    invoiceSpecs: InvoiceInfo
-};
+    vatRate?: Number,
+    invoiceSpecs: [InvoiceInfo]
+}
 
 export { ICustomer }
 

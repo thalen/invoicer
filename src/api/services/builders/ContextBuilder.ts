@@ -31,9 +31,28 @@ const withCustomer = (customer: ICustomer) => context => ({
         address: customer.address,
         zipCode: customer.zipCode,
         city: customer.city,
-        country: customer.country
+        country: customer.country,
+        orgNr: customer.orgNr,
+        vatId: customer.vatId,
+        contact: customer.contact,
+        isVat: !!customer.vatRate,
+        vatRate: customer.vatRate || 0,
+        invoiceSpec: customer.invoiceSpecs[0].specification.split('\n')
     }
 });
+
+const withVat = (inputParams: InvoiceRequest, rate: Number, vatRate: Number) => {
+    const hours = numeral(inputParams.hours);
+    const price = numeral(rate);
+    const amount = hours.value() * price.value();
+    const vatRatio = vatRate.valueOf() / 100;
+    const vatAmount = (amount * vatRatio).toString() + ',00';
+    const totalAmount = ((amount * vatRatio) + amount).toString() + ',00';
+    return {
+        vatAmount,
+        totalAmount
+    }
+};
 
 const contextBuilder = (...builders) => {
     const reducer = (accumalator, current) => {
@@ -50,5 +69,6 @@ export {
     withOcr,
     withInputParams,
     withCustomer,
-    contextBuilder
+    contextBuilder,
+    withVat
 }

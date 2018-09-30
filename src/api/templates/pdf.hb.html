@@ -165,11 +165,11 @@
             </tr>
             <tr>
                 <td>Organisationsnr:</td>
-                <td>HRB 179863 B</td>
+                <td>{{customer.orgNr}}</td>
             </tr>
             <tr>
                 <td>Moms regnr:</td>
-                <td>DE 308384673</td>
+                <td>{{customer.vatId}}</td>
             </tr>
             <tr>
                 <td>Kundnummer:</td>
@@ -197,7 +197,7 @@
             </tr>
             <tr>
                 <td>Er referens:</td>
-                <td>Emil Byström</td>
+                <td>{{customer.contact}}</td>
             </tr>
             <tr>
                 <td>Vår referens:</td>
@@ -207,10 +207,15 @@
     </div>
     <div id="pageBody">
         <strong>Specifikation:</strong>
-        <br>
-        Resurskonsult IT, Folksam ömsesidig sakförsäkring. Referens Ework: 129959
-        <br>
-        Reverse Charge VAT
+        <div style="margin-top:5px">
+            {{#each customer.invoiceSpec}}
+                <span style="font-weight: normal">{{this}}</span>
+                {{#unless @last}}
+                    <br>
+                {{/unless}}
+            {{/each}}
+        </div>
+
         <table class="spec" style="margin-top:15px">
             <tr>
                 <th>Benämning</th>
@@ -228,18 +233,29 @@
                 <td class="xs">Tim</td>
                 <td class="right">{{price}}</td>
                 <td class="md right">{{amount}}</td>
-                <td class="right">0</td>
+                <td class="right">{{customer.vatRate}}</td>
             </tr>
         </table>
         <div style="position:relative;float:right;margin-top:75px;">
             <div>
-                <span>Slutsumma exkl. moms:</span>
-                <span style="display:inline;margin-left:100px">{{amount}}</span>
+                <span style="margin-right:30px">Slutsumma exkl. moms:</span>
+                <span style="display:inline;float:right">{{amount}}</span>
+            </div>
+            {{#if customer.isVat}}
+            <div>
+                <span style="margin-right:30px">Momsbelopp:</span>
+                <span style="display:inline;float:right">{{vatAmount}}</span>
             </div>
             <div>
-                <span style="font-weight:bold">Totalt att betala:</span>
-                <span style="font-weight:bold;display:inline;margin-left:142px">{{amount}}</span>
+                <span style="font-weight:bold;margin-right:30px">Totalt att betala:</span>
+                <span style="font-weight:bold;display:inline;float:right">{{totalAmount}}</span>
             </div>
+            {{else}}
+            <div>
+                <span style="font-weight:bold;margin-right:30px">Totalt att betala:</span>
+                <span style="font-weight:bold;display:inline;float:right">{{amount}}</span>
+            </div>
+            {{/if}}
         </div>
 
     </div>
