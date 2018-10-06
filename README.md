@@ -1,16 +1,22 @@
 # invoicer
 
+Built using vue, node (typescript) and mongoose/mongodb
+
+## Prerequisites
+You need a local mongodb instance, check .nvmrc for node version.
+
 ## Project setup
 ```
-yarn install
+yarn
 ```
 
 ### Compiles and hot-reloads for development
+This will start local mongodb, api and frontend app
 ```
-yarn run serve
+yarn dev
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
+yarn build
 ```

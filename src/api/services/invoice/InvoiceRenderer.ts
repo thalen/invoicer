@@ -3,7 +3,6 @@ import InvoiceResponse from "../../mappers/InvoiceResponse";
 import * as handlebars from 'express-handlebars';
 import * as moment from 'moment';
 import * as pdf from 'html-pdf';
-import * as numeral from 'numeral';
 import { ICustomer } from "../../db/schemas/Customer";
 import {contextBuilder, withCustomer, withInputParams, withOcr, withVat} from "../builders/ContextBuilder";
 
