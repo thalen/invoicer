@@ -3,9 +3,7 @@ node_modules
 /dist
 
 # local env files
-.env.local
-.env.*.local
-aws_config.env
+application.env.local
 
 # Log files
 npm-debug.log*

@@ -1,4 +1,4 @@
-const result = require('dotenv').config({path: 'aws_config.env'});
+const result = require('dotenv').config({path: 'application.env.local'});
 if (result.error) {
     throw result.error;
 }
