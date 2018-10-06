@@ -2,6 +2,11 @@
 
 ## unreleased
 
+### Added
+- mongodb
+- customer support
+- invoice number saved in mongodb
+
 ## 2.0.0 - 2018-09-09
 
 ### Changed
