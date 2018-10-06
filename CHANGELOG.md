@@ -7,6 +7,9 @@
 - customer support
 - invoice number saved in mongodb
 
+### Removed
+- removed dependency to aws
+
 ## 2.0.0 - 2018-09-09
 
 ### Changed
