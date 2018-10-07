@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## 3.0.0 - 2018-10-07
+
 ### Added
 - mongodb
 - customer support
