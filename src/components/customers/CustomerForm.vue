@@ -23,7 +23,8 @@
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
 
-                <input v-model="form.address" type="text" id="address" placeholder="Gatuadress">
+                <input v-model="form.address1" type="text" id="address1" placeholder="Gatuadress 1">
+                <input v-model="form.address2" type="text" id="address2" placeholder="Gatuadress 2">
                 <input v-model="form.zipCode" type="text" id="zip" placeholder="Postadress">
                 <input v-model="form.city" type="text" id="city" placeholder="Stad">
                 <input v-model="form.country" type="text" id="country" placeholder="Land">
@@ -42,6 +43,13 @@
                     <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
                 </label>
                 <input v-model="form.vatId" type="text" id="vat_id">
+            </p>
+            <p>
+                <label for="paymentTerms">
+                    <span>Betalningsvillkor</span>
+                    <v-icon class="customer__required" color="#ff968e">brightness_1</v-icon>
+                </label>
+                <input v-model="form.paymentTerms" type="number" id="paymentTerms">
             </p>
             <p>
                 <label for="contact">

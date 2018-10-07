@@ -18,9 +18,14 @@ const CustomerSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        address: {
+        address1: {
             type: String,
             required: true,
+            trim: true
+        },
+        address2: {
+            type: String,
+            required: false,
             trim: true
         },
         zipCode: {
@@ -50,6 +55,11 @@ const CustomerSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
+        paymentTerms: {
+            type: Number,
+            required: true
+
+        },
         vatRate: {
             type: Number,
             min: 8
@@ -63,13 +73,15 @@ interface ICustomer extends mongoose.Document {
     user_id: String,
     publicId: Number,
     name: String,
-    address: String,
+    address1: String,
+    address2?: String,
     zipCode: String,
     city: String,
     country?: String,
     orgNr: String,
     vatId: String,
     contact: String,
+    paymentTerms: Number,
     vatRate?: Number,
     invoiceSpecs: [InvoiceInfo]
 }

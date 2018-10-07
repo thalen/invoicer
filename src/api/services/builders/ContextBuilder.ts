@@ -28,13 +28,15 @@ const withCustomer = (customer: ICustomer) => context => ({
     customer: {
         publicId: customer.publicId,
         name: customer.name,
-        address: customer.address,
+        address1: customer.address1,
+        address2: customer.address2,
         zipCode: customer.zipCode,
         city: customer.city,
         country: customer.country,
         orgNr: customer.orgNr,
         vatId: customer.vatId,
         contact: customer.contact,
+        paymentTerms: customer.paymentTerms,
         isVat: !!customer.vatRate,
         vatRate: customer.vatRate || 0,
         invoiceSpec: customer.invoiceSpecs[0].specification.split('\n')

@@ -146,8 +146,13 @@
             {{customer.name}}
           </span>
             <span>
-            {{customer.address}}
+            {{customer.address1}}
           </span>
+            {{#if customer.address2}}
+                <span>
+                    {{customer.address2}}
+                </span>
+            {{/if}}
             <span>
             {{customer.zipCode}}&nbsp;{{customer.city}}
           </span>
@@ -181,7 +186,7 @@
             </tr>
             <tr>
                 <td>Betalningsvillkor:</td>
-                <td>36 dagar netto</td>
+                <td>{{customer.paymentTerms}} dagar netto</td>
             </tr>
             <tr>
                 <td>Förfallodatum:</td>
