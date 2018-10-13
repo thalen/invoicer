@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 3.0.1 - 2018-10-13
+
+### Fixed
+- layout fix in pdf template
+- removed redux logging from production environment
+- fixed runtime error in invoice list reducer
+
 ## 3.0.0 - 2018-10-07
 
 ### Added
