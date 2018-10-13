@@ -163,11 +163,16 @@ let store;
 
 function configureStore(initialState) {
 
-    const middleware = [
+    const devMiddleware = [
         thunkMiddleware,
         loggerMiddleware,
         epicMiddleware
     ];
+    const prodMiddleware = [
+        thunkMiddleware,
+        epicMiddleware
+    ];
+    const middleware = process.env.NODE_ENV === 'development' ? devMiddleware : prodMiddleware;
     const composeEnhancers =
         typeof window === 'object' &&
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
