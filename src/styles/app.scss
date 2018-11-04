@@ -13,3 +13,12 @@
 a {
   cursor: pointer;
 }
+
+select {
+  background-color: white !important;
+  border-style: solid !important;
+  width: 120px;
+  height: 35px;
+  -webkit-appearance: menulist !important;
+  box-sizing: border-box !important;
+}
