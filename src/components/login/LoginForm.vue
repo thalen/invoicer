@@ -1,26 +1,28 @@
 <template>
-    <div class="login layout-main">
-        <h3>Logga in</h3>
-        <fieldset class="login__form">
-            <p>Ange inloggningsuppgifter</p>
+    <v-flex xs8 offset-xs2>
+        <div class="login">
+            <h3>Logga in</h3>
+            <fieldset class="login__form">
+                <p>Ange inloggningsuppgifter</p>
 
-            <form>
-                <p>
-                    <label for="user_id">Användarnamn</label>
-                    <input v-model="user" type="text" id="user_id">
-                </p>
+                <form>
+                    <p>
+                        <label for="user_id">Användarnamn</label>
+                        <input v-model="user" type="text" id="user_id">
+                    </p>
 
-                <p>
-                    <label for="pwd">Lösenord</label>
-                    <input v-model="password" type="password" id="pwd">
-                </p>
+                    <p>
+                        <label for="pwd">Lösenord</label>
+                        <input v-model="password" type="password" id="pwd">
+                    </p>
 
-                <v-btn v-on:click="onSubmit" color="info" type="submit">Logga in</v-btn>
-                
-            </form>
-            <span v-if="loginFailed" class="login__error">Inloggningen misslyckades</span>
-        </fieldset>
-    </div>
+                    <v-btn v-on:click="onSubmit" color="info" type="submit">Logga in</v-btn>
+
+                </form>
+                <span v-if="loginFailed" class="login__error">Inloggningen misslyckades</span>
+            </fieldset>
+        </div>
+    </v-flex>
 </template>
 <script>
 import "./LoginForm.scss";

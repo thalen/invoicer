@@ -1,14 +1,5 @@
 @import "~bourbon/app/assets/stylesheets/bourbon";
 @import "~bourbon-bitters/app/assets/stylesheets/bitters";
-@import "~bourbon-neat/core/neat";
-
-@import "grid.scss";
-
-@import "blocks/menu";
-
-#root {
-  background-color: red;
-}
 
 a {
   cursor: pointer;

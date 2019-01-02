@@ -1,5 +1,5 @@
 <template>
-    <div class="invoice layout-main">
+    <v-flex xs12>
         <div>
             <v-tabs
                     color="light-green"
@@ -28,8 +28,7 @@
 
 
         </div>
-
-    </div>
+    </v-flex>
 </template>
 
 <script>

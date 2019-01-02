@@ -52,9 +52,8 @@
           <v-layout
                   row wrap
           >
-            <v-flex xs12>
-              <router-view></router-view>
-            </v-flex>
+            <router-view></router-view>
+
           </v-layout>
         </v-container>
       </v-content>
