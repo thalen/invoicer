@@ -19,5 +19,6 @@ module.exports = {
                 secure: false
             }
         }
-    }
-}
+    },
+    lintOnSave: process.env.NODE_ENV !== 'production'
+};
