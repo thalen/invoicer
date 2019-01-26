@@ -55,8 +55,8 @@
                 <b>Fakturan är laddad</b>
             </v-alert>
             <div v-if="showPdf">
-                <v-btn color="info" style="margin-left:0">Förhandsgranska</v-btn>
-                <v-btn color="info">Spara</v-btn>
+                <v-btn target="_blank" color="info" style="margin-left:0" v-bind:href="pdfLink">Förhandsgranska</v-btn>
+                <v-btn color="info" v-on:click="doSave">Spara</v-btn>
             </div>
         </div>
     </v-flex>
