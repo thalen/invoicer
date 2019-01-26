@@ -2,6 +2,14 @@
 
 ## unreleased
 
+## 3.1.0 - 2019-01-26
+
+### Changed
+- now uses vuetify for all layout, added more ui components from vuetify
+
+### Removed
+- removed neat
+
 ## 3.0.1 - 2018-10-13
 
 ### Fixed
