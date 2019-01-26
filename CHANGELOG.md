@@ -2,6 +2,9 @@
 
 ## unreleased
 
+## 3.1.2 - 2019-01-26
+- fixed some stuff
+
 ## 3.1.1 - 2019-01-26
 - fix merge errors
 
