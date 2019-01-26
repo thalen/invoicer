@@ -44,84 +44,89 @@
                         </select>
                     </p>
                     <p>
-                        <input v-on:click="doPreview" type="submit" value="Förhandsgranska"/>
+                        <input v-on:click="doPreview" type="submit" value="Skapa faktura"/>
                     </p>
                 </form>
             </fieldset>
-            <div v-if="showPdf" class="invoice__notification">
-                Fakturan är laddad
-                <a target="_blank" style="display:block" v-bind:href="pdfLink">Förhandsgranska</a>
-                <v-btn style="margin-top:10px" v-on:click="doSave" color="info">Spara</v-btn>
+            <v-alert v-if="showPdf"
+                    :value="true"
+                    type="success"
+            >
+                <b>Fakturan är laddad</b>
+            </v-alert>
+            <div v-if="showPdf">
+                <v-btn color="info" style="margin-left:0">Förhandsgranska</v-btn>
+                <v-btn color="info">Spara</v-btn>
             </div>
         </div>
     </v-flex>
 </template>
 
 <script>
-    import "./invoice.scss";
-    import {getStore} from "../../configureStore";
+import './invoice.scss';
+import { getStore } from '../../configureStore';
 
-    let store = getStore();
-    export default {
-        name: "invoice",
-        data() {
-            return {
-                form: {
-                    invoiceMonth: ""
-                },
-                showPdf: this.$select("invoice.showPdf as showPdf"),
-                pdfLink: this.$select("invoice.pdfLink as pdfLink"),
-                ocr: this.$select("invoice.ocr as ocr"),
-                customers: this.$select("customer.customers as customers"),
-                selectedCustomer: undefined
-            };
-        },
-        methods: {
-            doPreview(event) {
-                event.preventDefault();
-                if (this.pdfLink !== void 0 && this.pdfLink !== null) {
-                    let arr = this.pdfLink.split("/");
-                    store.dispatch({
-                        type: "REMOVE_LINK",
-                        asset: arr[arr.length - 1]
-                    });
-                }
+let store = getStore();
+export default {
+    name: 'invoice',
+    data() {
+        return {
+            form: {
+                invoiceMonth: ''
+            },
+            showPdf: this.$select('invoice.showPdf as showPdf'),
+            pdfLink: this.$select('invoice.pdfLink as pdfLink'),
+            ocr: this.$select('invoice.ocr as ocr'),
+            customers: this.$select('customer.customers as customers'),
+            selectedCustomer: undefined
+        };
+    },
+    methods: {
+        doPreview(event) {
+            event.preventDefault();
+            if (this.pdfLink !== void 0 && this.pdfLink !== null) {
+                let arr = this.pdfLink.split('/');
                 store.dispatch({
-                    type: "PREVIEW_INIT",
-                    model: {
-                        customer: this.selectedCustomer,
-                        hours: this.form.hours,
-                        dueDate: this.form.dueDate,
-                        invoiceMonth: this.form.invoiceMonth
+                    type: 'REMOVE_LINK',
+                    asset: arr[arr.length - 1]
+                });
+            }
+            store.dispatch({
+                type: 'PREVIEW_INIT',
+                model: {
+                    customer: this.selectedCustomer,
+                    hours: this.form.hours,
+                    dueDate: this.form.dueDate,
+                    invoiceMonth: this.form.invoiceMonth
+                }
+            });
+            this.form = {
+                invoiceMonth: ''
+            };
+            this.selectedCustomer = undefined;
+        },
+        doSave(event) {
+            event.preventDefault();
+            let arr = this.pdfLink.split('/');
+            store.dispatch({
+                type: 'SAVE_INVOICE',
+                pdf: arr[arr.length - 1],
+                ocr: this.ocr,
+                customerId: store.state.customer.selectedCustomer
+            });
+        }
+    },
+    watch: {
+        selectedCustomer(newVal) {
+            if (newVal) {
+                store.dispatch({
+                    type: 'CUSTOMER_SELECTED',
+                    payload: {
+                        id: newVal
                     }
                 });
-                this.form = {
-                    invoiceMonth: ""
-                };
-                this.selectedCustomer = undefined;
-            },
-            doSave(event) {
-                event.preventDefault();
-                let arr = this.pdfLink.split("/");
-                store.dispatch({
-                    type: "SAVE_INVOICE",
-                    pdf: arr[arr.length - 1],
-                    ocr: this.ocr,
-                    customerId: store.state.customer.selectedCustomer
-                });
-            }
-        },
-        watch: {
-            selectedCustomer(newVal) {
-                if (newVal) {
-                    store.dispatch({
-                        type: "CUSTOMER_SELECTED",
-                        payload: {
-                            id: newVal
-                        }
-                    });
-                }
             }
         }
-    };
+    }
+};
 </script>
