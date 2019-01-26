@@ -34,15 +34,15 @@ export default function() {
     }));
 
 
-    server.get(/\/css\/(.*)?.*/, restifyPlugins.serveStatic({
+    server.get('/css/*', restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 
-    server.get(/\/js\/(.*)?.*/, restifyPlugins.serveStatic({
+    server.get('/js/*', restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 
-    server.get(/\/assets\/(.*)?.*/, restifyPlugins.serveStatic({
+    server.get('/assets/*', restifyPlugins.serveStatic({
         directory: `${__dirname}../../../dist`
     }));
 

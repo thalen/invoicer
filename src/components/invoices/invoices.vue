@@ -1,5 +1,6 @@
 <template>
-    <div class="invoices layout-main">
+    <v-flex xs12>
+    <div class="invoices">
         <h3 class="invoices__header">Alla fakturor</h3>
         <table>
             <tbody>
@@ -18,7 +19,7 @@
             </tbody>
         </table>
     </div>
-
+    </v-flex>
 </template>
 <script>
 import "./invoices.scss";

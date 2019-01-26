@@ -1,6 +1,6 @@
 <template>
-    <fieldset class="customer__form" style="margin-top:30px">
 
+    <fieldset class="customer__form" style="margin-top:30px">
         <form>
             <p>
                 <label for="publicId">

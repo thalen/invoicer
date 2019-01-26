@@ -2,49 +2,64 @@
   <div id="app">
 
     <v-app>
-      <div id="main">
+      <v-navigation-drawer
+              v-if="loggedIn"
+              v-model="drawer"
+              fixed
+              app
+      >
+        <v-list dense>
+          <v-list-tile @click="goto('invoice')">
+            <v-list-tile-action>
+              <v-icon>money</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Skapa faktura</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="goto('invoices')">
+            <v-list-tile-action>
+              <v-icon>format_align_justify</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Mina fakturor</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="goto('settings')">
+            <v-list-tile-action>
+              <v-icon>person_pin</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Lägg till kund</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="logout()">
+            <v-list-tile-action>
+              <v-icon>stop</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Logga ut</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+      <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar-side-icon v-if="loggedIn" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-title>Invoicer</v-toolbar-title>
+      </v-toolbar>
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout
+                  row wrap
+          >
+            <router-view></router-view>
 
-        <div class="lg-col-2">&nbsp;</div>
-        <div class="lg-col-8">
-
-
-          <div id="navigate" class="layout-sidebar" v-if="loggedIn">
-
-            <div class="layout-sidebar__item">
-              <v-menu offset-y>
-                <a
-                        class="layout-sidebar__item__link"
-                        slot="activator"
-                        color="primary"
-                        dark
-                        style="max-height: 20px"
-                >
-                  Invoicer
-                </a>
-                <v-list>
-                  <v-list-tile
-                          @click="goto('invoice')"
-                  >
-                    <v-list-tile-title>Skapa faktura</v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile @click="goto('settings')">
-                    <v-list-tile-title>Inställningar</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-
-            </div>
-            <div class="layout-sidebar__item">
-              <router-link class="layout-sidebar__item__link" to="/invoices">Mina fakturor</router-link>
-            </div>
-            <div class="layout-sidebar__item">
-              <a class="layout-sidebar__item__link" href="" v-on:click="logout">Logga ut</a>
-            </div>
-          </div>
-          <router-view></router-view>
-        </div>
-        <div class="lg-col-2">&nbsp;</div>
-      </div>
+          </v-layout>
+        </v-container>
+      </v-content>
+      <v-footer color="indigo" app>
+        <span class="white--text">&copy; 2017</span>
+      </v-footer>
     </v-app>
   </div>
 </template>
@@ -56,7 +71,8 @@
         name: "App",
         data() {
             return {
-                loggedIn: this.$select("router.loggedIn as loggedIn")
+                loggedIn: this.$select("router.loggedIn as loggedIn"),
+                drawer: null
             };
         },
         methods: {
