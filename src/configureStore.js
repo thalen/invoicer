@@ -41,3 +41,11 @@ export function getStore() {
   }
   return store;
 }
+
+const actionCreator = fn => {
+  const store = getStore();
+  const getState = () => store.state;
+  return fn(store.dispatch.bind(store), getState);
+};
+
+export { actionCreator };

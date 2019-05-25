@@ -92,7 +92,7 @@
                 ></v-textarea>
                 <input v-model="form.invoiceRate" type="text" placeholder="Timpris">
             </p>
-            <v-btn style="margin-top:10px" type="submit" v-on:click="addCustomer" color="info">Lägg till</v-btn>
+            <v-btn style="margin-top:10px" type="submit" v-on:click="createCustomer" color="info">Lägg till</v-btn>
             <span v-if="createStatus === 'FAILED'" class="customer__error">Kunden kunde ej skapas</span>
             <span v-if="createStatus === 'CREATED'" class="customer__success">Kunden skapad</span>
         </form>
@@ -100,8 +100,8 @@
 </template>
 <script>
 import './customerForm.scss';
-import { getStore } from '../../configureStore';
-const store = getStore();
+import createCustomer from '../../actions/createCustomer';
+
 export default {
   name: 'customerForm',
   data() {
@@ -113,14 +113,9 @@ export default {
     };
   },
   methods: {
-    addCustomer(event) {
+    createCustomer(event) {
       event.preventDefault();
-      store.dispatch({
-        type: 'CREATE_CUSTOMER',
-        form: {
-          ...this.form
-        }
-      });
+      createCustomer(this.form);
     }
   },
   watch: {

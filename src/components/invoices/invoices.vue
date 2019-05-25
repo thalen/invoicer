@@ -12,7 +12,7 @@
                     Skapad
                 </th>
             </tr>
-            <tr v-for="item in invoices">
+            <tr v-bind:key="item.id" v-for="item in invoices">
                 <td>{{item.label}}</td>
                 <td class="invoices__table-align">{{item.created}}</td>
             </tr>
@@ -22,13 +22,13 @@
     </v-flex>
 </template>
 <script>
-import "./invoices.scss";
-import { getStore } from "../../configureStore";
+import './invoices.scss';
+import { getStore } from '../../configureStore';
 let store = getStore();
 export default {
   data() {
     return {
-      invoices: this.$select("invoice.invoices as invoices")
+      invoices: this.$select('invoice.invoices as invoices')
     };
   },
   created() {
@@ -39,7 +39,7 @@ export default {
   methods: {
     fetchData() {
       store.dispatch({
-        type: "LOAD_INVOICES"
+        type: 'LOAD_INVOICES'
       });
     }
   }

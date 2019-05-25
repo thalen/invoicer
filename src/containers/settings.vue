@@ -32,28 +32,21 @@
 </template>
 
 <script>
-    import "./settings.scss";
-    import { getStore } from "../configureStore";
-    import CustomerList from "../components/customers/CustomerList.vue";
-    import CustomerForm from "../components/customers/CustomerForm.vue";
+import './settings.scss';
+import CustomerList from '../components/customers/CustomerList.vue';
+import CustomerForm from '../components/customers/CustomerForm.vue';
 
-    let store = getStore();
-    export default {
-        name: "settings",
-        data() {
-            return {
-                items: [
-                    { title: 'Skapa ny kund' },
-                    { title: 'Redigera befintlig kund' }
-                ]
-            };
-        },
-        methods: {
-
-        },
-        components: {
-            CustomerList,
-            CustomerForm
-        }
+export default {
+  name: 'settings',
+  data() {
+    return {
+      items: [{ title: 'Skapa ny kund' }, { title: 'Redigera befintlig kund' }]
     };
+  },
+  methods: {},
+  components: {
+    CustomerList,
+    CustomerForm
+  }
+};
 </script>

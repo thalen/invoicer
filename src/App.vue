@@ -64,27 +64,27 @@
   </div>
 </template>
 <script>
-    import { getStore } from "./configureStore";
+import { getStore } from './configureStore';
 
-    const store = getStore();
-    export default {
-        name: "App",
-        data() {
-            return {
-                loggedIn: this.$select("router.loggedIn as loggedIn"),
-                drawer: null
-            };
-        },
-        methods: {
-            logout() {
-                store.dispatch({
-                    type: "LOGOUT"
-                });
-                this.$router.push("login");
-            },
-            goto(route) {
-                this.$router.push(route);
-            }
-        }
+const store = getStore();
+export default {
+  name: 'App',
+  data() {
+    return {
+      loggedIn: this.$select('router.loggedIn as loggedIn'),
+      drawer: null
     };
+  },
+  methods: {
+    logout() {
+      store.dispatch({
+        type: 'LOGOUT'
+      });
+      this.$router.push('login');
+    },
+    goto(route) {
+      this.$router.push(route);
+    }
+  }
+};
 </script>
