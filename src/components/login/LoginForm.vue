@@ -25,35 +25,35 @@
     </v-flex>
 </template>
 <script>
-import "./LoginForm.scss";
-import { getStore } from "../../configureStore";
+import './LoginForm.scss';
+import { getStore } from '../../configureStore';
 const store = getStore();
 export default {
-  name: "invoice",
-  data() {
-    return {
-      user: "",
-      password: "",
-      loginFailed: this.$select("router.loginFailed as loginFailed"),
-      loggedIn: this.$select("router.loggedIn as loggedIn")
-    };
-  },
-  methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      store.dispatch({
-        type: "AUTHENTICATE",
-        user: this.user,
-        password: this.password
-      });
+    name: 'invoice',
+    data() {
+        return {
+            user: '',
+            password: '',
+            loginFailed: this.$select('router.loginFailed as loginFailed'),
+            loggedIn: this.$select('router.loggedIn as loggedIn')
+        };
+    },
+    methods: {
+        onSubmit(event) {
+            event.preventDefault();
+            store.dispatch({
+                type: 'AUTHENTICATE',
+                user: this.user,
+                password: this.password
+            });
+        }
+    },
+    watch: {
+        loggedIn(newVal) {
+            if (newVal) {
+                this.$router.push('invoice');
+            }
+        }
     }
-  },
-  watch: {
-    loggedIn(newVal) {
-      if (newVal) {
-        this.$router.push("invoice");
-      }
-    }
-  }
 };
 </script>

@@ -99,38 +99,38 @@
     </fieldset>
 </template>
 <script>
-    import "./customerForm.scss";
-    import { getStore } from "../../configureStore";
-    const store = getStore();
-    export default {
-        name: "customerForm",
-        data() {
-            return {
-                form: {
-                    vatEnabled: 'false'
-                },
-                createStatus: this.$select("customer.status as createStatus"),
-            };
-        },
-        methods: {
-            addCustomer(event) {
-                event.preventDefault();
-                store.dispatch({
-                    type: "CREATE_CUSTOMER",
-                    form: {
-                        ...this.form
-                    }
-                });
-            }
-        },
-        watch: {
-            createStatus(newVal) {
-                if (newVal === 'CREATED') {
-                    this.form = {
-                        vatEnabled: false
-                    }
-                }
-            }
-        }
+import './customerForm.scss';
+import { getStore } from '../../configureStore';
+const store = getStore();
+export default {
+  name: 'customerForm',
+  data() {
+    return {
+      form: {
+        vatEnabled: 'false'
+      },
+      createStatus: this.$select('customer.status as createStatus')
     };
+  },
+  methods: {
+    addCustomer(event) {
+      event.preventDefault();
+      store.dispatch({
+        type: 'CREATE_CUSTOMER',
+        form: {
+          ...this.form
+        }
+      });
+    }
+  },
+  watch: {
+    createStatus(newVal) {
+      if (newVal === 'CREATED') {
+        this.form = {
+          vatEnabled: false
+        };
+      }
+    }
+  }
+};
 </script>
