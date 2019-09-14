@@ -2,6 +2,9 @@
 
 ## unreleased
 
+## 3.2.0 - 2019-09-14
+- refactoring
+
 ## 3.1.2 - 2019-01-26
 - fixed some stuff
 
