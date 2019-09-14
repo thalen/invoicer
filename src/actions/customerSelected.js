@@ -1,4 +1,4 @@
-import { actionCreator } from '../configureStore';
+import { actionCreator } from '../store';
 
 const customerSelected = dispatch => id => {
   dispatch({

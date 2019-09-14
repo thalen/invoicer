@@ -1,4 +1,4 @@
-import { actionCreator } from '../configureStore';
+import { actionCreator } from '../store';
 
 const previewInvoice = dispatch => (pdfLink, selectedCustomer, { hours, dueDate, invoiceMonth }) => {
   if (pdfLink !== void 0 && pdfLink !== null) {

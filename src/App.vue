@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import { getStore } from './configureStore';
+import { getStore } from './store';
 
 const store = getStore();
 export default {

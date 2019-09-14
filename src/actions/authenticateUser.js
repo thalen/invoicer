@@ -1,4 +1,4 @@
-import { actionCreator } from '../configureStore';
+import { actionCreator } from '../store';
 
 export const authenticateUser = dispatch => (user, password) => {
   dispatch({

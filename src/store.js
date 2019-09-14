@@ -17,7 +17,6 @@ import epicMiddleware from './epics';
 const loggerMiddleware = createLogger();
 
 let store;
-
 function configureStore() {
   const devMiddleware = [thunkMiddleware, loggerMiddleware, epicMiddleware];
   const prodMiddleware = [thunkMiddleware, epicMiddleware];

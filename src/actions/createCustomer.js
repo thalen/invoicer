@@ -1,4 +1,4 @@
-import { actionCreator } from '../configureStore';
+import { actionCreator } from '../store';
 
 const createCustomer = dispatch => form => {
   dispatch({

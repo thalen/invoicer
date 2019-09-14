@@ -1,4 +1,4 @@
-import { actionCreator } from '../configureStore';
+import { actionCreator } from '../store';
 
 const saveInvoice = (dispatch, getState) => (pdfLink, ocr) => {
   const arr = pdfLink.split('/');

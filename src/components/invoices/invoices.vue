@@ -23,7 +23,7 @@
 </template>
 <script>
 import './invoices.scss';
-import { getStore } from '../../configureStore';
+import { getStore } from '../../store';
 let store = getStore();
 export default {
   data() {
