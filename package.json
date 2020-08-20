@@ -18,7 +18,7 @@
     "@types/restify": "^7.2.6",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
-    "bcrypt": "^3.0.3",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.0",
     "bourbon-bitters": "1.2.1",
     "date-fns": "^1.30.1",
