@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && tsc",
-    "db": "mongod",
+    "db": "mongod --dbpath data/db",
     "api": "./node_modules/nodemon/bin/nodemon.js",
     "startApi": "ts-node src/api/index_dev.ts",
     "dev": "concurrently --kill-others \"yarn db\" \"yarn api\" \"yarn serve\"",
