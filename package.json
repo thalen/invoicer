@@ -35,7 +35,7 @@
     "mongoose-timestamp": "0.6.0",
     "morgan": "^1.9.1",
     "node-bourbon": "4.2.8",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.13.1",
     "numeral": "^2.0.6",
     "promise": "^8.0.2",
     "redis": "^2.8.0",
