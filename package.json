@@ -29,7 +29,7 @@
     "html-pdf": "2.2.0",
     "jsonwebtoken": "^8.4.0",
     "marked": "^0.5.2",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "mongoose": "5.4.0",
     "mongoose-string-query": "0.2.5",
     "mongoose-timestamp": "0.6.0",
